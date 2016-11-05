@@ -1,0 +1,30 @@
+{
+	"always_show_minimap_viewport": true,
+	"auto_complete": true,
+	"auto_complete_commit_on_tab": true,
+	"bold_folder_labels": true,
+	"color_scheme": "Packages/Theme - itg.flat/itg.dark.tmTheme",
+	"copy_with_empty_selection": true,
+	"font_size": 13,
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"index_files": true,
+	"line_padding_bottom": 3,
+	"line_padding_top": 3,
+	"overlay_scroll_bars": "enabled",
+	"rulers":
+	[
+		79
+	],
+	"tab_size": 2,
+	"theme": "itg.flat.dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"vintageous_enable_cmdline_mode": true,
+	"vintageous_hlsearch": true,
+	"vintageous_incsearch": true,
+	"vintageous_use_ctrl_keys": false
+}
