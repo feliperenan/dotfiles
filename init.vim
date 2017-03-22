@@ -117,11 +117,13 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" nmap <silent> <leader>tt :TestFile<CR>
-" nmap <silent> <leader>ts :TestNearest<CR>
-" nmap <silent> <leader>ta :TestSuite<CR>
-" nmap <silent> <leader>tl :TestLast<CR>
-" nmap <silent> <leader>tv :TestVisit<CR>
+let test#strategy = "neoterm"
+
+nmap <silent> <leader>tt :TestFile<CR>
+nmap <silent> <leader>ts :TestNearest<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
 
 let g:neoterm_position = 'horizontal'
 let g:neoterm_automap_keys = ',tt'
@@ -131,10 +133,11 @@ nnoremap <silent> <f10> :TREPLSendFile<cr>
 nnoremap <silent> <f9> :TREPLSend<cr>
 vnoremap <silent> <f9> :TREPLSend<cr>
 
+" This commands doesn't working more :(
 " run set test lib
-nnoremap <silent> <leader>ta :call neoterm#test#run('all')<cr>
-nnoremap <silent> <leader>tt :call neoterm#test#run('file')<cr>
-nnoremap <silent> <leader>ts :call neoterm#test#run('current')<cr>
+" nnoremap <silent> <leader>ta :call neoterm#test#run('all')<cr>
+" nnoremap <silent> <leader>tt :call neoterm#test#run('file')<cr>
+" nnoremap <silent> <leader>ts :call neoterm#test#run('current')<cr>
 
 " Useful maps
 " hide/close terminal
@@ -159,13 +162,12 @@ nmap <leader>tb :TagbarToggle<CR>
 " Syntax checker
 Plug 'neomake/neomake'
 
-autocmd! BufWritePost * Neomake
-
 " Enable eslint to neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
 
-autocmd! BufWritePost * Neomake
+au BufWinEnter,BufWritePost * Neomake
 
 call plug#end()
 
