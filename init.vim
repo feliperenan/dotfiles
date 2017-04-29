@@ -3,10 +3,6 @@ set shell=/bin/zsh
 set re=1
 set hidden
 
-" Fix clipbord error
-" This happens in TMUX + MAC sierra
-set clipboard=unnamed
-
 " Leader key
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
