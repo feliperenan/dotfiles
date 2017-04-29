@@ -59,8 +59,6 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 " Run tests
 Plug 'janko-m/vim-test'
 
-Plug 'kassio/neoterm'
-
 " This plugin is needed to enable repeat `.` in plugins like surround
 " also from tpope
 Plug 'tpope/vim-repeat'
@@ -93,6 +91,9 @@ Plug 'sjbach/lusty'
 Plug 'vim-ruby/vim-ruby'
 Plug 'scrooloose/nerdtree'
 
+" Set terminal to vim-test
+let test#strategy = "neovim"
+
 " Enable JSX highlighting into JS files
 let g:jsx_ext_required = 0
 
@@ -118,35 +119,15 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-let test#strategy = "neoterm"
-
 nmap <silent> <leader>tt :TestFile<CR>
 nmap <silent> <leader>ts :TestNearest<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 
-let g:neoterm_position = 'horizontal'
-let g:neoterm_automap_keys = ',tt'
-let g:neoterm_rspec_lib_cmd = 'bin/rspec'
-
 nnoremap <silent> <f10> :TREPLSendFile<cr>
 nnoremap <silent> <f9> :TREPLSend<cr>
 vnoremap <silent> <f9> :TREPLSend<cr>
-
-" This commands doesn't working more :(
-" run set test lib
-" nnoremap <silent> <leader>ta :call neoterm#test#run('all')<cr>
-" nnoremap <silent> <leader>tt :call neoterm#test#run('file')<cr>
-" nnoremap <silent> <leader>ts :call neoterm#test#run('current')<cr>
-
-" Useful maps
-" hide/close terminal
-nnoremap <silent> ,th :call neoterm#close()<cr>
-" clear terminal
-nnoremap <silent> ,tl :call neoterm#clear()<cr>
-" kills the current job (send a <c-c>)
-nnoremap <silent> ,tc :call neoterm#kill()<cr>
 
 " Rails commands
 command! Troutes :T rake routes
