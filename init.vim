@@ -91,6 +91,7 @@ Plug 'sjbach/lusty'
 " Use vim-ruby, the default ruby syntax highlighting had slow regexp
 " and long lines were causing a sort of lag.
 Plug 'vim-ruby/vim-ruby'
+Plug 'scrooloose/nerdtree'
 
 " Enable JSX highlighting into JS files
 let g:jsx_ext_required = 0
@@ -290,6 +291,9 @@ map <silent> <leader>h :call WinMove('h')<cr>
 map <silent> <leader>j :call WinMove('j')<cr>
 map <silent> <leader>k :call WinMove('k')<cr>
 map <silent> <leader>l :call WinMove('l')<cr>
+
+" Toggle NerdTree
+map <C-n> :NERDTreeToggle<CR>
 
 " Window movement shortcuts
 " move to the window in the direction shown, or create a new window
