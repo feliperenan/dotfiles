@@ -322,4 +322,9 @@ map ,. :bprevious<cr>
 
 command! Vb normal! <C-v>
 
-" Emulate tmux keys (so I don't have to learn new key sequences)
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
