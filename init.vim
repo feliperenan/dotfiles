@@ -7,170 +7,64 @@ set hidden
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
 
-" Init Plugins
-call plug#begin('~/.vim/plugged')
+" Fix colors
+syntax enable
 
-" Emmet - Snippts html
-Plug 'mattn/emmet-vim'
-
-" Autocomplete function
+" Deoplete function
 function! DoRemote(arg)
  UpdateRemotePlugins
 endfunction
 
-" Auto complete plugin
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-
-" Themes
-" Plug 'mhartington/oceanic-next'
-Plug 'nanotech/jellybeans.vim'
-" Plug 'othree/yajs.vim'
-
-" CMD + D like sublime text
-Plug 'terryma/vim-multiple-cursors'
-
-" dependency for xolox plugins
-Plug 'xolox/vim-misc'
-
-" Airline
-Plug 'bling/vim-airline'
-
-" Gists plugin
-Plug 'mattn/webapi-vim' " Dependency
-
-Plug 'mattn/gist-vim'
-
-" Alignhment
-Plug 'junegunn/vim-easy-align'
-
-" Dependencies for the gem below
-Plug 'tmhedberg/matchit'
-
-Plug 'kana/vim-textobj-user'
-
-" Select code blocks in ruby
-Plug 'nelstrom/vim-textobj-rubyblock'
-
-" Run rspec
-" Run tests
-Plug 'janko-m/vim-test'
-
-" This plugin is needed to enable repeat `.` in plugins like surround
-" also from tpope
-Plug 'tpope/vim-repeat'
-
-" Javascript and JSX
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-
-Plug 'jiangmiao/auto-pairs'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-bundler'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'kien/ctrlp.vim'
-" Plug 'Valloric/MatchTagAlways'
-Plug 'rking/ag.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'danro/rename.vim'
-Plug 'tpope/vim-surround'
-Plug 'elixir-lang/vim-elixir'
-Plug 'tpope/vim-endwise'
-Plug 'sjbach/lusty'
-
-" Use vim-ruby, the default ruby syntax highlighting had slow regexp
-" and long lines were causing a sort of lag.
-Plug 'vim-ruby/vim-ruby'
-Plug 'scrooloose/nerdtree'
-Plug 'vim-scripts/tComment'
-
-" Set terminal to vim-test
-let test#strategy = "neovim"
-
-" Enable JSX highlighting into JS files
-let g:jsx_ext_required = 0
-
-let g:deoplete#enable_at_startup = 1
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
-
-" Indentation config
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
-
-" Gist config
-let g:gist_show_privates = 1
-let g:gist_post_private = 1
-
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-nmap <silent> <leader>tt :TestFile<CR>
-nmap <silent> <leader>ts :TestNearest<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tv :TestVisit<CR>
-
-nnoremap <silent> <f10> :TREPLSendFile<cr>
-nnoremap <silent> <f9> :TREPLSend<cr>
-vnoremap <silent> <f9> :TREPLSend<cr>
-
-" Rails commands
-command! Troutes :T rake routes
-command! -nargs=+ Troute :T rake routes | grep <args>
-command! Tmigrate :T rake db:migrate
-
-" Git commands
-command! -nargs=+ Tg :T git <args>
-
-" Tagbar
-Plug 'majutsushi/tagbar'
-nmap <leader>tb :TagbarToggle<CR>
-
-" Syntax checker
-Plug 'neomake/neomake'
-
-" Enable eslint to neomake
-let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-
-au BufWinEnter,BufWritePost * Neomake
-
+" Init Plugins
+call plug#begin('~/.vim/plugged')
+	Plug 'mattn/emmet-vim'
+	Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+	Plug 'nanotech/jellybeans.vim'
+	Plug 'terryma/vim-multiple-cursors'
+	Plug 'xolox/vim-misc'
+	Plug 'bling/vim-airline'
+	Plug 'mattn/webapi-vim'
+	Plug 'mattn/gist-vim'
+	Plug 'junegunn/vim-easy-align'
+	Plug 'tmhedberg/matchit'
+	Plug 'kana/vim-textobj-user'
+	Plug 'nelstrom/vim-textobj-rubyblock'
+	Plug 'janko-m/vim-test'
+	Plug 'tpope/vim-repeat'
+	Plug 'pangloss/vim-javascript'
+	Plug 'mxw/vim-jsx'
+	Plug 'jiangmiao/auto-pairs'
+	Plug 'ntpeters/vim-better-whitespace'
+	Plug 'tpope/vim-abolish'
+	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-rails'
+	Plug 'tpope/vim-rake'
+	Plug 'tpope/vim-projectionist'
+	Plug 'tpope/vim-bundler'
+	Plug 'editorconfig/editorconfig-vim'
+	Plug 'kien/ctrlp.vim'
+	Plug 'Valloric/MatchTagAlways'
+	Plug 'rking/ag.vim'
+	Plug 'kchmck/vim-coffee-script'
+	Plug 'danro/rename.vim'
+	Plug 'tpope/vim-surround'
+	Plug 'elixir-lang/vim-elixir'
+	Plug 'tpope/vim-endwise'
+	Plug 'sjbach/lusty'
+	Plug 'vim-ruby/vim-ruby'
+	Plug 'scrooloose/nerdtree'
+	Plug 'vim-scripts/tComment'
+	Plug 'majutsushi/tagbar'
+	Plug 'neomake/neomake'
 call plug#end()
-
-" Fix colors
-syntax enable
-
-" OceanicNext theme
 
 " Or if you have Neovim >= 0.1.5
 if (has("termguicolors"))
    set termguicolors
 endif
 
-" set background=dark
-" colorscheme OceanicNext
-
-" enable italics, disabled by default
-" let g:oceanic_next_terminal_italic = 1
-" let g:airline_theme='oceanicnext'
-
-" Jellybeans
 colorscheme jellybeans
 
-" Preferences
 set visualbell    " don't beep
 set noerrorbells  " don't beep
 set autoread " Auto read when a file is changed on disk"
@@ -199,8 +93,10 @@ set shiftwidth=2
 
 " Start find/replace
 noremap <leader>r :%s/
+
 " Paste mode
 nnoremap <leader>o :set invpaste<CR>
+
 " Tired of :w :q etc
 nnoremap ;w :w<CR>
 nnoremap ;q :q<CR>
@@ -215,11 +111,11 @@ set splitbelow
 set splitright
 
 " Open ctrlp
- set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
- noremap <leader>p :CtrlP<CR>
- noremap <leader>. :CtrlPTag<CR>
- noremap <leader>b :CtrlPBuffer<CR>
- noremap <leader>m :CtrlPMRU<CR>
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+noremap <leader>p :CtrlP<CR>
+noremap <leader>. :CtrlPTag<CR>
+noremap <leader>b :CtrlPBuffer<CR>
+noremap <leader>m :CtrlPMRU<CR>
 
 " Ctrlp ignore file list
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage)|(\.(swp|ico|git|svn))$'
@@ -230,28 +126,10 @@ let g:ctrlp_working_path_mode = 'a'
 " allow saving a sudo file if forgot to open as sudo
 cmap w!! w !sudo tee % >/dev/null
 
-" Golang highlighting
-" Some Linux distributions  filetype in /etc/vimrc.
-" " Clear filetype flags before changing runtimepath to force Vim to reload
-" them.
-filetype off
-filetype plugin indent off
-set runtimepath+=/usr/local/go/misc/vim
-
-" use goimports after save"
-" let g:go_fmt_command = "goimports"
-filetype plugin indent on
-syntax on
-
 " Relative numbers
 set relativenumber " use relative numbers
 autocmd InsertEnter * silent! : norelativenumber
 autocmd InsertLeave,BufNewFile,VimEnter * silent! : relativenumber
-
-" JS beautify
-autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " Disable arrow keys"
 nnoremap <up>    <nop>
@@ -262,18 +140,6 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
-
-" Tmux fix color backgrounds
-" http://superuser.com/questions/399296/256-color-support-for-vim-background-in-tmux
-
-" Split navigation with something fancy :)
-map <silent> <leader>h :call WinMove('h')<cr>
-map <silent> <leader>j :call WinMove('j')<cr>
-map <silent> <leader>k :call WinMove('k')<cr>
-map <silent> <leader>l :call WinMove('l')<cr>
-
-" Toggle NerdTree
-map <C-n> :NERDTreeToggle<CR>
 
 " Window movement shortcuts
 " move to the window in the direction shown, or create a new window
@@ -289,6 +155,15 @@ function! WinMove(key)
        exec "wincmd ".a:key
    endif
 endfunction
+
+" Split navigation with something fancy :)
+map <silent> <leader>h :call WinMove('h')<CR>
+map <silent> <leader>j :call WinMove('j')<CR>
+map <silent> <leader>k :call WinMove('k')<CR>
+map <silent> <leader>l :call WinMove('l')<CR>
+
+" Toggle NerdTree
+map <C-n> :NERDTreeToggle<CR>
 
 " Add javascript syntax to es6, es7 files
 autocmd BufNewFile,BufRead *.es6   set syntax=javascript
@@ -307,17 +182,17 @@ autocmd BufNewFile,BufRead *.ejs set syntax=html
 " Add html syntax to nunjucks
 autocmd BufNewFile,BufRead *.nunjucks set syntax=html
 
-" Add html syntax to nunjucks
+" Add json syntax to babelrc
 autocmd BufNewFile,BufRead *.babelrc set syntax=json
 
 " Add spell checking and wrap at 72 columns git commit message
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
-" Golang fake tab to 4 spaces
-au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
 
 " Run buffer in postgres as a query
-map <leader>rq :w !psql -d PremiosOnline_development -f -<cr>
+map <leader>rq :w !psql -d PremiosOnline_development -f -<CR>
 
 " Change buffers
 map ,, :bnext<cr>
@@ -325,9 +200,70 @@ map ,. :bprevious<cr>
 
 command! Vb normal! <C-v>
 
-" automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
-
 " zoom a vim pane, <C-w>= to re-balance
 nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nnoremap <leader>= :wincmd =<cr>
+
+" Set terminal to vim-test
+let test#strategy = "neovim"
+
+let g:deoplete#enable_at_startup = 1
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Indentation config
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+
+" Gist config
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" Ruby / Rails
+command! Troutes :T rake routes
+command! -nargs=+ Troute :T rake routes | grep <args>
+command! Tmigrate :T rake db:migrate
+
+nmap <silent> <leader>tt :TestFile<CR>
+nmap <silent> <leader>ts :TestNearest<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
+
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
+
+" Javascript
+" Enable eslint to neomake
+let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+au BufWinEnter,BufWritePost * Neomake
+
+" Enable JSX highlighting into JS files
+let g:jsx_ext_required = 0
+
+" JS beautify
+autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" Git commands
+command! -nargs=+ Tg :T git <args>
+
+let g:deoplete#enable_at_startup = 1
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Indentation config
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
