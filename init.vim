@@ -86,6 +86,7 @@ Plug 'sjbach/lusty'
 " and long lines were causing a sort of lag.
 Plug 'vim-ruby/vim-ruby'
 Plug 'scrooloose/nerdtree'
+Plug 'vim-scripts/tComment'
 
 " Set terminal to vim-test
 let test#strategy = "neovim"
@@ -193,6 +194,8 @@ set ignorecase  " case insensitive search
 set smartcase   " If a capital letter is included in search, make it case-sensitive
 set nohlsearch  " dont highlight search results
 set ttimeoutlen=0 " Remove 'esc' delay
+set tabstop=2
+set shiftwidth=2
 
 " Start find/replace
 noremap <leader>r :%s/
