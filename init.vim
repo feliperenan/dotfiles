@@ -7,6 +7,12 @@ set hidden
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
 
+" Shortcut to open vim rc
+nmap <leader>vr :sp $MYVIMRC<cr>
+
+" Shortcut to reload vim config
+nmap <leader>so :source $MYVIMRC<cr>
+
 " Fix colors
 syntax enable
 
