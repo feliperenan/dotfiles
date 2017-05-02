@@ -46,4 +46,4 @@ Copy `~/dotfiles/.tmux.conf` to your home
 cp ~/dotfiles/.tmux.conf ~
 ```
 
-Install plugins with (tmux-plugins)[https://github.com/tmux-plugins/tpm]
+Install plugins with [tmux-plugins](https://github.com/tmux-plugins/tpm)
