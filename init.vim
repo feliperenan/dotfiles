@@ -13,6 +13,11 @@ nmap <leader>vr :sp $MYVIMRC<cr>
 " Shortcut to reload vim config
 nmap <leader>so :source $MYVIMRC<cr>
 
+" 2 spaces forever :)
+set tabstop=2
+set shiftwidth=2 
+set expandtab
+
 " Fix colors
 syntax enable
 
