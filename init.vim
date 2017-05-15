@@ -44,6 +44,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-repeat'
 	Plug 'pangloss/vim-javascript'
 	Plug 'mxw/vim-jsx'
+	Plug 'posva/vim-vue'
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'ntpeters/vim-better-whitespace'
 	Plug 'tpope/vim-abolish'
@@ -174,7 +175,7 @@ map <silent> <leader>k :call WinMove('k')<CR>
 map <silent> <leader>l :call WinMove('l')<CR>
 
 " Toggle NerdTree
-map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeToggle<CR>
 
 " Add javascript syntax to es6, es7 files
 autocmd BufNewFile,BufRead *.es6   set syntax=javascript
@@ -257,6 +258,7 @@ let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
 let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_vue_enabled_makers = ['eslint']
 au BufWinEnter,BufWritePost * Neomake
 
 " Enable JSX highlighting into JS files
@@ -266,6 +268,10 @@ let g:jsx_ext_required = 0
 autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
 autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" Vue JS config
+autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
 " Git commands
 command! -nargs=+ Tg :T git <args>
