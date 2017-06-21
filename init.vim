@@ -1,8 +1,7 @@
 set shell=/bin/zsh
 
 set re=1
-set hidden
-
+set hidden 
 " Leader key
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
