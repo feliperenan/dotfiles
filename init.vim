@@ -30,6 +30,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'mattn/emmet-vim'
 	Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 	Plug 'nanotech/jellybeans.vim'
+	Plug 'AlessandroYorba/Sierra'
+	Plug 'morhetz/gruvbox'
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'xolox/vim-misc'
 	Plug 'bling/vim-airline'
@@ -67,14 +69,16 @@ call plug#begin('~/.vim/plugged')
 	Plug 'vim-scripts/tComment'
 	Plug 'majutsushi/tagbar'
 	Plug 'neomake/neomake'
+	Plug 'chrisbra/vim-diff-enhanced'
 call plug#end()
 
-" Or if you have Neovim >= 0.1.5
-if (has("termguicolors"))
-   set termguicolors
-endif
+set termguicolors
 
-colorscheme jellybeans
+" let g:sierra_Pitch = 1
+" colorscheme sierra
+
+colorscheme gruvbox
+set background=dark
 
 set visualbell    " don't beep
 set noerrorbells  " don't beep
