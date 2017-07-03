@@ -68,7 +68,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree'
   Plug 'vim-scripts/tComment'
   Plug 'majutsushi/tagbar'
-  Plug 'neomake/neomake'
+  Plug 'w0rp/ale'
   Plug 'chrisbra/vim-diff-enhanced'
 call plug#end()
 
@@ -256,16 +256,12 @@ let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
 
-" Javascript
-" Enable eslint to neomake
-let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_vue_enabled_makers = ['eslint']
-au BufWinEnter,BufWritePost * Neomake
-
-" Enable JSX highlighting into JS files
-let g:jsx_ext_required = 0
+" Linters setup
+set nocompatible
+filetype off
+let &runtimepath.=',~/.vim/bundle/ale'
+filetype plugin on
+let g:ale_linters = { 'javascript': ['eslint', 'jshint'], 'ruby': ['rubocop'] }
 
 " JS beautify
 autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
