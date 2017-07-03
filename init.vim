@@ -33,12 +33,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'AlessandroYorba/Sierra'
   Plug 'morhetz/gruvbox'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'xolox/vim-misc'
   Plug 'bling/vim-airline'
   Plug 'mattn/webapi-vim'
   Plug 'mattn/gist-vim'
   Plug 'junegunn/vim-easy-align'
-  Plug 'tmhedberg/matchit'
   Plug 'kana/vim-textobj-user'
   Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'janko-m/vim-test'
@@ -48,7 +46,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'posva/vim-vue'
   Plug 'jiangmiao/auto-pairs'
   Plug 'ntpeters/vim-better-whitespace'
-  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-rake'
@@ -66,10 +63,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'sjbach/lusty'
   Plug 'vim-ruby/vim-ruby'
   Plug 'scrooloose/nerdtree'
-  Plug 'vim-scripts/tComment'
-  Plug 'majutsushi/tagbar'
   Plug 'w0rp/ale'
   Plug 'chrisbra/vim-diff-enhanced'
+  Plug 'vim-scripts/tComment'
 call plug#end()
 
 set termguicolors
