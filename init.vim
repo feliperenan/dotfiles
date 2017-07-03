@@ -6,6 +6,9 @@ set hidden
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
 
+" Remove scrolls bars from macvim
+set guioptions=
+
 " Shortcut to open vim rc
 nmap <leader>vr :sp $MYVIMRC<cr>
 
