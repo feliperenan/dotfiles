@@ -17,8 +17,6 @@ set tabstop=2
 set shiftwidth=2 
 set expandtab
 
-" Fix colors
-syntax enable
 
 " Init Plugins
 call plug#begin('~/.vim/plugged')
@@ -26,6 +24,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'nanotech/jellybeans.vim'
   Plug 'AlessandroYorba/Sierra'
   Plug 'morhetz/gruvbox'
+  Plug 'joshdick/onedark.vim'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'bling/vim-airline'
   Plug 'mattn/webapi-vim'
@@ -65,11 +64,10 @@ call plug#end()
 
 set termguicolors
 
-" let g:sierra_Pitch = 1
-" colorscheme sierra
-
-colorscheme gruvbox
-set background=dark
+syntax enable
+colorscheme onedark
+let g:onedark_terminal_italics=1
+let g:airline_theme='onedark'
 
 set visualbell    " don't beep
 set noerrorbells  " don't beep
