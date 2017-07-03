@@ -20,15 +20,9 @@ set expandtab
 " Fix colors
 syntax enable
 
-" Deoplete function
-function! DoRemote(arg)
- UpdateRemotePlugins
-endfunction
-
 " Init Plugins
 call plug#begin('~/.vim/plugged')
   Plug 'mattn/emmet-vim'
-  Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
   Plug 'nanotech/jellybeans.vim'
   Plug 'AlessandroYorba/Sierra'
   Plug 'morhetz/gruvbox'
@@ -66,6 +60,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'w0rp/ale'
   Plug 'chrisbra/vim-diff-enhanced'
   Plug 'vim-scripts/tComment'
+  Plug 'maralla/completor.vim'
 call plug#end()
 
 set termguicolors
@@ -216,9 +211,7 @@ nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nnoremap <leader>= :wincmd =<cr>
 
 " Set terminal to vim-test
-let test#strategy = "neovim"
-
-let g:deoplete#enable_at_startup = 1
+let test#strategy = "iterm"
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -270,8 +263,6 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
 " Git commands
 command! -nargs=+ Tg :T git <args>
-
-let g:deoplete#enable_at_startup = 1
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
