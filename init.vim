@@ -171,7 +171,15 @@ map <silent> <leader>k :call WinMove('k')<CR>
 map <silent> <leader>l :call WinMove('l')<CR>
 
 " Toggle NerdTree
-map <C-m> :NERDTreeToggle<CR>
+noremap <Leader>f :NERDTreeToggle<CR>
+
+" Open NerdTree on current file
+nnoremap <silent> <Leader>c :NERDTreeFind<CR>
+" It closes NerdTree automatically
+let NERDTreeQuitOnOpen = 1
+" Making it prettier
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 " Add javascript syntax to es6, es7 files
 autocmd BufNewFile,BufRead *.es6   set syntax=javascript
