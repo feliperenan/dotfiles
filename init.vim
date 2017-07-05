@@ -19,6 +19,7 @@ nmap <leader>so :source $MYVIMRC<cr>
 set tabstop=2
 set shiftwidth=2 
 set expandtab
+set autoread
 
 
 " Init Plugins
