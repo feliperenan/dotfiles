@@ -271,4 +271,9 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Indentation config
 set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
+
+" Enable/Disable tabline from vim-airline
+" 0 = disable
+" 1 = enable
+let g:airline#extensions#tabline#enabled = 0
+
