@@ -64,7 +64,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'chrisbra/vim-diff-enhanced'
   Plug 'vim-scripts/tComment'
   Plug 'maralla/completor.vim'
+  " Snippets
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
 call plug#end()
+
+" Snippets config
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 set termguicolors
 
