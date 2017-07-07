@@ -78,7 +78,13 @@ set termguicolors
 
 syntax enable
 colorscheme onedark
-let g:onedark_terminal_italics=1
+hi htmlArg gui=italic
+hi Comment gui=italic
+hi Type    gui=italic
+hi htmlArg cterm=italic
+hi Comment cterm=italic
+hi Type    cterm=italic
+" let g:onedark_terminal_italics=1
 let g:airline_theme='onedark'
 
 set visualbell    " don't beep
