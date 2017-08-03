@@ -189,8 +189,6 @@ noremap <Leader>f :NERDTreeToggle<CR>
 
 " Open NerdTree on current file
 nnoremap <silent> <Leader>c :NERDTreeFind<CR>
-" It closes NerdTree automatically
-let NERDTreeQuitOnOpen = 1
 " Making it prettier
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
