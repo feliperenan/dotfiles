@@ -143,7 +143,7 @@ noremap <leader>m :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage)|(\.(swp|ico|git|svn))$'
 
 " Ctrlp starting in current directory
-let g:ctrlp_working_path_mode = 'a'
+" let g:ctrlp_working_path_mode = 'a'
 
 " allow saving a sudo file if forgot to open as sudo
 cmap w!! w !sudo tee % >/dev/null
