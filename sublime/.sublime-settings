@@ -2,10 +2,23 @@
 	"always_show_minimap_viewport": true,
 	"auto_complete": true,
 	"auto_complete_commit_on_tab": true,
+	"auto_complete_selector": "text.html.erb",
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Theme - itg.flat/itg.dark.tmTheme",
-	"copy_with_empty_selection": true,
-	"font_size": 13,
+	"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Palenight.tmTheme",
+	"folder_exclude_patterns":
+	[
+		"node_modules",
+		".git",
+		"mocha .",
+		".nyc_output",
+		"coverage",
+		"tmp",
+		"log",
+		"public/assets"
+	],
+	"font_face": "Operator mono Light",
+	"font_size": 16,
+	"ignored_packages": [],
 	"indent_guide_options":
 	[
 		"draw_normal",
@@ -14,17 +27,22 @@
 	"index_files": true,
 	"line_padding_bottom": 3,
 	"line_padding_top": 3,
+	"material_theme_big_fileicons": true,
+	"material_theme_bold_tab": true,
+	"material_theme_compact_sidebar": true,
+	"material_theme_small_tab": true,
+	"material_theme_tabs_autowidth": true,
+	"material_theme_tabs_separator": true,
 	"overlay_scroll_bars": "enabled",
 	"rulers":
 	[
 		79
 	],
+	"show_full_path": true,
 	"tab_size": 2,
-	"theme": "itg.flat.dark.sublime-theme",
+	"theme": "Material-Theme-Palenight.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
-	"vintageous_enable_cmdline_mode": true,
-	"vintageous_hlsearch": true,
-	"vintageous_incsearch": true,
-	"vintageous_use_ctrl_keys": false
+	"use_simple_full_screen": true,
+	"vintage_ctrl_keys": true
 }
