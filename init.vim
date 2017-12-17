@@ -64,6 +64,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'chrisbra/vim-diff-enhanced'
   Plug 'vim-scripts/tComment'
   Plug 'maralla/completor.vim'
+  Plug 'mhinz/vim-mix-format'
   " Snippets
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
@@ -140,7 +141,7 @@ noremap <leader>b :CtrlPBuffer<CR>
 noremap <leader>m :CtrlPMRU<CR>
 
 " Ctrlp ignore file list
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage|_build)|(\.(swp|ico|git|svn))$'
 
 " Ctrlp starting in current directory
 " let g:ctrlp_working_path_mode = 'a'
@@ -297,3 +298,4 @@ set laststatus=2
 " 1 = enable
 let g:airline#extensions#tabline#enabled = 0
 
+map <leader>mf :MixFormat<CR>
