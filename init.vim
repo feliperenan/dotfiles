@@ -78,7 +78,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 set termguicolors
 
 syntax enable
-colorscheme onedark
+colorscheme jellybeans
 hi htmlArg gui=italic
 hi Comment gui=italic
 hi Type    gui=italic
