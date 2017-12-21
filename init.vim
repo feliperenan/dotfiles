@@ -204,6 +204,7 @@ map <silent> <leader>l :call WinMove('l')<CR>
 
 " Toggle NerdTree
 noremap <Leader>f :NERDTreeToggle<CR>
+noremap <Leader>n :NERDTreeFind<CR>
 
 " Open NerdTree on current file
 nnoremap <silent> <Leader>c :NERDTreeFind<CR>
