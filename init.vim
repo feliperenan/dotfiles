@@ -317,3 +317,9 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 0
 
 map <leader>mf :MixFormat<CR>
+
+" Copy the current path to clipboard
+nnoremap <Leader>c :let @+=expand('%:p')<CR>
+
+" Copy the current path with line number to clipboard
+nnoremap <leader>y :let @+=expand('%:p') . ':' . line(".")<CR>
