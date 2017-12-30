@@ -45,6 +45,7 @@ cask 'sublime-text'
 cask 'spotify'
 cask 'steam'
 cask 'beamer'
+cask 'dolphin'
 
 tap 'caskroom/drivers'
 cask 'xbox360-controller-driver'
