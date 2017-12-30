@@ -1,8 +1,9 @@
+# specify a directory to install
+cask_args appdir: '/Applications'
+
 tap "homebrew/core"
 tap "homebrew/bundle"
 tap "homebrew/services"
-tap "neovim/neovim"
-brew "ant"
 brew "autoconf"
 brew "automake"
 brew "ccat"
@@ -11,29 +12,42 @@ brew "ctags"
 brew "git"
 brew "elixir", args: ["HEAD"]
 brew "fzf"
-brew "gettext"
 brew "heroku"
-brew "htop"
 brew "hub"
 brew "libtool"
-brew "libvterm"
-brew "libxml2"
-brew "unibilium"
 brew "neovim"
-brew "pcre"
 brew "phantomjs"
-brew "xz"
-brew "python3"
 brew "postgresql", restart_service: true
-brew "qt@5.5", link: true
 brew "ruby-build"
 brew "rbenv"
-brew "reattach-to-user-namespace"
 brew "redis", restart_service: true
 brew "the_silver_searcher"
-brew "tmux"
 brew "tree"
 brew "vim"
-brew "watchman"
 brew "wrk"
 brew "yarn"
+
+cask 'firefox'
+cask 'google-chrome'
+cask 'dropbox'
+cask 'typora'
+cask 'vlc'
+cask 'spectacle'
+cask 'grammarly'
+cask 'discord'
+cask 'skype'
+cask 'slack'
+cask 'alfred'
+cask 'dash'
+cask 'iterm2'
+cask 'postman'
+cask 'sublime-text'
+cask 'spotify'
+cask 'steam'
+cask 'beamer'
+
+tap 'caskroom/drivers'
+cask 'xbox360-controller-driver'
+
+brew 'mas'
+mas 'Shush', id: 496437906
