@@ -13,7 +13,18 @@ Make sure that you have `~/.config/nvim/init.vim` and add it there:
 source $HOME/dotfiles/init.vim
 ```
 
-On your vim run:
+```VIM
+:PlugInstall
+```
+
+### VIM
+Install [vim-plug](https://github.com/junegunn/vim-plug)
+
+Make sure that you have `~/.vimrc` and add it there:
+```
+source $HOME/dotfiles/init.vim
+```
+
 ```VIM
 :PlugInstall
 ```
