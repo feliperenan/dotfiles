@@ -77,16 +77,19 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 set termguicolors
 
-syntax enable
-colorscheme jellybeans
+syntax on
+let g:onedark_color_overrides = {
+\ "black": {"gui": "#2F343F", "cterm": "235", "cterm16": "0" },
+\ "purple": { "gui": "#C678DF", "cterm": "170", "cterm16": "5" }
+\}
+colorscheme onedark
+let g:onedark_terminal_italics=1
 hi htmlArg gui=italic
 hi Comment gui=italic
 hi Type    gui=italic
 hi htmlArg cterm=italic
 hi Comment cterm=italic
 hi Type    cterm=italic
-" let g:onedark_terminal_italics=1
-let g:airline_theme='onedark'
 
 set visualbell    " don't beep
 set noerrorbells  " don't beep
@@ -252,7 +255,7 @@ nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nnoremap <leader>= :wincmd =<cr>
 
 " Set terminal to vim-test
-let test#strategy = "neovim"
+let test#strategy = "basic"
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
