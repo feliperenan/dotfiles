@@ -21,7 +21,6 @@ set shiftwidth=2
 set expandtab
 set autoread
 
-
 " Init Plugins
 call plug#begin('~/.vim/plugged')
   Plug 'mattn/emmet-vim'
@@ -29,6 +28,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'AlessandroYorba/Sierra'
   Plug 'morhetz/gruvbox'
   Plug 'joshdick/onedark.vim'
+  Plug 'mhartington/oceanic-next'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'bling/vim-airline'
   Plug 'mattn/webapi-vim'
@@ -76,14 +76,14 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 set termguicolors
+syntax enable 
+" for vim 8
+ if (has("termguicolors"))
+  set termguicolors
+ endif
 
-syntax on
-let g:onedark_color_overrides = {
-\ "black": {"gui": "#2F343F", "cterm": "235", "cterm16": "0" },
-\ "purple": { "gui": "#C678DF", "cterm": "170", "cterm16": "5" }
-\}
-colorscheme onedark
-let g:onedark_terminal_italics=1
+colorscheme OceanicNext
+
 hi htmlArg gui=italic
 hi Comment gui=italic
 hi Type    gui=italic
