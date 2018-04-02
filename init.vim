@@ -295,6 +295,8 @@ filetype off
 let &runtimepath.=',~/.vim/bundle/ale'
 filetype plugin on
 let g:ale_linters = { 'javascript': ['eslint', 'jshint'], 'ruby': ['rubocop'] }
+" Set this in your vimrc file to disabling highlighting
+let g:ale_set_highlights = 0
 
 " JS beautify
 autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
