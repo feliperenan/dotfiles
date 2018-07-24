@@ -10,7 +10,7 @@ let g:mapleader = "\<SPACE>"
 set guioptions=
 
 " Shortcut to open vim rc
-nmap <leader>vr :sp $MYVIMRC<cr>
+nmap <leader>vr :sp ~/dotfiles/init.vim<cr>
 
 " Shortcut to reload vim config
 nmap <leader>so :source $MYVIMRC<cr>
@@ -20,22 +20,22 @@ set tabstop=2
 set shiftwidth=2 
 set expandtab
 set autoread
+set statusline=2
+set statusline=%f\ %y\ %M%=\%=\ %l\,%c%=\%p%%(#%n\)
+
+" Copy to clipboard from vim
+set clipboard+=unnamed 
 
 " Init Plugins
 call plug#begin('~/.vim/plugged')
   Plug 'mattn/emmet-vim'
   Plug 'nanotech/jellybeans.vim'
-  Plug 'AlessandroYorba/Sierra'
-  Plug 'morhetz/gruvbox'
-  Plug 'joshdick/onedark.vim'
   Plug 'mhartington/oceanic-next'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'bling/vim-airline'
-  Plug 'mattn/webapi-vim'
+  " Plug 'bling/vim-airline'
+  " Plug 'itchyny/lightline.vim'
   Plug 'mattn/gist-vim'
-  Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-textobj-user'
-  Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'janko-m/vim-test'
   Plug 'tpope/vim-repeat'
   Plug 'pangloss/vim-javascript'
@@ -46,13 +46,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-rake'
-  Plug 'tpope/vim-projectionist'
   Plug 'tpope/vim-bundler'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'kien/ctrlp.vim'
   Plug 'Valloric/MatchTagAlways'
   Plug 'rking/ag.vim'
-  Plug 'kchmck/vim-coffee-script'
   Plug 'danro/rename.vim'
   Plug 'tpope/vim-surround'
   Plug 'elixir-lang/vim-elixir'
@@ -61,13 +59,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-ruby/vim-ruby'
   Plug 'scrooloose/nerdtree'
   Plug 'w0rp/ale'
-  Plug 'chrisbra/vim-diff-enhanced'
+  " Plug 'chrisbra/vim-diff-enhanced'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'vim-scripts/tComment'
-  Plug 'maralla/completor.vim'
   Plug 'mhinz/vim-mix-format'
   " Snippets
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
+  " Plug 'SirVer/ultisnips'
+  " Plug 'honza/vim-snippets'
 call plug#end()
 
 " Snippets config
@@ -83,6 +81,7 @@ syntax enable
  endif
 
 colorscheme OceanicNext
+" colorscheme jellybeans 
 
 hi htmlArg gui=italic
 hi Comment gui=italic
@@ -255,14 +254,10 @@ nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nnoremap <leader>= :wincmd =<cr>
 
 " Set terminal to vim-test
-let test#strategy = "basic"
+let g:test#strategy = 'neovim'
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Indentation config
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
 
 " Gist config
 let g:gist_show_privates = 1
@@ -298,6 +293,9 @@ let g:ale_linters = { 'javascript': ['eslint', 'jshint'], 'ruby': ['rubocop'] }
 " Set this in your vimrc file to disabling highlighting
 let g:ale_set_highlights = 0
 
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
 " JS beautify
 autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
 autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
@@ -314,12 +312,7 @@ command! -nargs=+ Tg :T git <args>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Indentation config
-set laststatus=2
-
-" Enable/Disable tabline from vim-airline
-" 0 = disable
-" 1 = enable
-let g:airline#extensions#tabline#enabled = 0
+" set laststatus=2
 
 map <leader>mf :MixFormat<CR>
 
@@ -328,3 +321,5 @@ nnoremap <Leader>c :let @+=expand('%:p')<CR>
 
 " Copy the current path with line number to clipboard
 nnoremap <leader>y :let @+=expand('%:p') . ':' . line(".")<CR>
+
+let g:lightline = { 'colorscheme': 'one' }
