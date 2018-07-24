@@ -30,6 +30,13 @@ source $HOME/dotfiles/init.vim
 ```
 
 ### CTAGS with GIT
+
+Configure GIT
+```bash
+git config --global init.templatedir '~/.git_template'
+git config --global alias.ctags '!.git/hooks/ctags'
+```
+
 Copy `.git_template` to your home directory
 ```bash
 cp -r ~/dotfiles/.git_template ~
@@ -40,14 +47,21 @@ Let ctags executable:
 chmod +x .git/hooks/ctags
 ```
 
+You may need to re-initialize the git inside your project:
+```bash
+git init
+```
+
 Inside your project:
 ```bash
 git ctags
 ```
 
-Now ctags will be update automatically after each git commit.
+Now ctags will be update automatically after each git commands.
 
 More info [here](http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html)
+
+So far this commit, CTAGS doesn't support Elixir by default, consider use this [elixir-ctags](https://github.com/mmorearty/elixir-ctags).
 
 ### TMUX
 
