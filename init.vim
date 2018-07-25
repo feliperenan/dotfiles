@@ -144,7 +144,7 @@ noremap <leader>b :CtrlPBuffer<CR>
 noremap <leader>m :CtrlPMRU<CR>
 
 " bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nnoremap \ :Ag<SPACE>
 
