@@ -21,7 +21,7 @@ set shiftwidth=2
 set expandtab
 set autoread
 set statusline=2
-set statusline=%f\ %y\ %M%=\%=\ %l\,%c%=\%p%%(#%n\)
+set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 " Copy to clipboard from vim
 set clipboard+=unnamed 
@@ -249,6 +249,19 @@ nnoremap <leader>= :wincmd =<cr>
 
 " Set terminal to vim-test
 let g:test#strategy = 'neovim'
+
+" Setup Elixir Umbrella test
+function! ElixirUmbrellaTransform(cmd) abort
+  if match(a:cmd, 'apps/') != -1
+    return substitute(a:cmd, 'mix test apps/\([^/]*/\)', 'cd apps/\1 \&\& mix test ', '')
+  else
+    return a:cmd
+  end
+endfunction
+
+let g:test#preserve_screen = 1
+let g:test#custom_transformations = {'elixir_umbrella': function('ElixirUmbrellaTransform')}
+let g:test#transformation = 'elixir_umbrella'
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
