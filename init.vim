@@ -32,32 +32,23 @@ call plug#begin('~/.vim/plugged')
   Plug 'nanotech/jellybeans.vim'
   Plug 'mhartington/oceanic-next'
   Plug 'terryma/vim-multiple-cursors'
-  " Plug 'bling/vim-airline'
-  " Plug 'itchyny/lightline.vim'
   Plug 'mattn/gist-vim'
+  Plug 'sheerun/vim-polyglot'
   Plug 'kana/vim-textobj-user'
   Plug 'janko-m/vim-test'
   Plug 'tpope/vim-repeat'
-  Plug 'pangloss/vim-javascript'
-  Plug 'mxw/vim-jsx'
-  Plug 'posva/vim-vue'
   Plug 'jiangmiao/auto-pairs'
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-rails'
-  Plug 'tpope/vim-rake'
-  Plug 'tpope/vim-bundler'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'kien/ctrlp.vim'
   Plug 'Valloric/MatchTagAlways'
   Plug 'rking/ag.vim'
   Plug 'danro/rename.vim'
   Plug 'tpope/vim-surround'
-  Plug 'elixir-lang/vim-elixir'
   Plug 'slashmili/alchemist.vim'
   Plug 'tpope/vim-endwise'
-  Plug 'sjbach/lusty'
-  Plug 'vim-ruby/vim-ruby'
+  " Plug 'sjbach/lusty'
   Plug 'scrooloose/nerdtree'
   Plug 'w0rp/ale'
   " Plug 'chrisbra/vim-diff-enhanced'
@@ -67,6 +58,8 @@ call plug#begin('~/.vim/plugged')
   " Snippets
   " Plug 'SirVer/ultisnips'
   " Plug 'honza/vim-snippets'
+  Plug 'bogado/file-line'
+  Plug 'Chiel92/vim-autoformat'
 call plug#end()
 
 " Snippets config
@@ -270,20 +263,11 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" Ruby / Rails
-command! Troutes :T rake routes
-command! -nargs=+ Troute :T rake routes | grep <args>
-command! Tmigrate :T rake db:migrate
-
 nmap <silent> <leader>tt :TestFile<CR>
 nmap <silent> <leader>ts :TestNearest<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
-
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
 
 " Linters setup
 set nocompatible
@@ -294,8 +278,15 @@ let g:ale_linters = { 'javascript': ['eslint', 'jshint'], 'ruby': ['rubocop'] }
 " Set this in your vimrc file to disabling highlighting
 let g:ale_set_highlights = 0
 
-" Use deoplete.
+" Auto complete config.
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#disable_auto_complete = 1
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
+
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 
 " JS beautify
 autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
@@ -313,14 +304,18 @@ command! -nargs=+ Tg :T git <args>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Indentation config
-" set laststatus=2
+set laststatus=2
 
 map <leader>mf :MixFormat<CR>
 
 " Copy the current path to clipboard
-nnoremap <Leader>c :let @+=expand('%:p')<CR>
+nnoremap <Leader>yc :let @+=expand('%:p')<CR>
 
 " Copy the current path with line number to clipboard
-nnoremap <leader>y :let @+=expand('%:p') . ':' . line(".")<CR>
+nnoremap <leader>yp :let @+=expand('%:p') . ':' . line(".")<CR>
 
-let g:lightline = { 'colorscheme': 'one' }
+" Auto format config
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:elixir_autoformat_enabled = 0
+let g:mix_format_on_save = 1
