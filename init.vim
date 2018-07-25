@@ -54,6 +54,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'danro/rename.vim'
   Plug 'tpope/vim-surround'
   Plug 'elixir-lang/vim-elixir'
+  Plug 'slashmili/alchemist.vim'
   Plug 'tpope/vim-endwise'
   Plug 'sjbach/lusty'
   Plug 'vim-ruby/vim-ruby'
