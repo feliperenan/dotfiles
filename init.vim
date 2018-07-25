@@ -62,11 +62,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'Chiel92/vim-autoformat'
 call plug#end()
 
-" Snippets config
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 set termguicolors
 syntax enable 
 " for vim 8
@@ -266,16 +261,13 @@ let g:test#transformation = 'elixir_umbrella'
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Gist config
-let g:gist_show_privates = 1
-let g:gist_post_private = 1
-
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" Vim-test key bindings
 nmap <silent> <leader>tt :TestFile<CR>
 nmap <silent> <leader>ts :TestNearest<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
@@ -301,25 +293,8 @@ function! s:check_back_space() abort "{{{
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
-" JS beautify
-autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
-
-" Vue JS config
-autocmd FileType vue syntax sync fromstart
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-
-" Git commands
-command! -nargs=+ Tg :T git <args>
-
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Indentation config
-set laststatus=2
-
-map <leader>mf :MixFormat<CR>
 
 " Copy the current path to clipboard
 nnoremap <Leader>yc :let @+=expand('%:p')<CR>
