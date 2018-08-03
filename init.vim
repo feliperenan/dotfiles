@@ -254,6 +254,9 @@ function! ElixirUmbrellaTransform(cmd) abort
   end
 endfunction
 
+" Remap ESC to not close the test window.
+tnoremap <Esc> <C-\><C-n>
+
 let g:test#preserve_screen = 1
 let g:test#custom_transformations = {'elixir_umbrella': function('ElixirUmbrellaTransform')}
 let g:test#transformation = 'elixir_umbrella'
