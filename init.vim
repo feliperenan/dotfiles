@@ -20,8 +20,6 @@ set tabstop=2
 set shiftwidth=2 
 set expandtab
 set autoread
-set statusline=2
-set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 " Copy to clipboard from vim
 set clipboard+=unnamed 
@@ -50,9 +48,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-endwise'
   " Plug 'sjbach/lusty'
   Plug 'scrooloose/nerdtree'
-  Plug 'w0rp/ale'
+  Plug 'neomake/neomake'
+  " Plug 'w0rp/ale'
   " Plug 'chrisbra/vim-diff-enhanced'
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
   Plug 'vim-scripts/tComment'
   Plug 'mhinz/vim-mix-format'
   " Snippets
@@ -60,6 +65,9 @@ call plug#begin('~/.vim/plugged')
   " Plug 'honza/vim-snippets'
   Plug 'bogado/file-line'
   Plug 'Chiel92/vim-autoformat'
+  Plug 'vim-airline/vim-airline'
+  Plug 'Asheq/close-buffers.vim'  
+  Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 set termguicolors
@@ -125,34 +133,31 @@ set splitbelow
 set splitright
 
 " Open ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore +=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore +=*/node_modules
 noremap <leader>p :CtrlP<CR>
 noremap <leader>. :CtrlPTag<CR>
 noremap <leader>b :CtrlPBuffer<CR>
 noremap <leader>m :CtrlPMRU<CR>
 
-" bind K to grep word under cursor
-nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage|_build)|(\.(swp|ico|git|svn))$'
 
-nnoremap \ :Ag<SPACE>
-
-" The Silver Searcher
+"" The Silver Searcher
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --ignore node_modules -g ""'
 
-  " ag is fast enough that CtrlP doesn't need to cache
+  " " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
 
-" Ctrlp ignore file list
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage|_build)|(\.(swp|ico|git|svn))$'
+" bind K to grep word under cursor
+nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-" Ctrlp starting in current directory
-" let g:ctrlp_working_path_mode = 'a'
+nnoremap \ :Ag<SPACE>
 
 " allow saving a sudo file if forgot to open as sudo
 cmap w!! w !sudo tee % >/dev/null
@@ -217,6 +222,9 @@ autocmd BufRead,BufNewFile *.jsx.erb set filetype=javascript
 " Add html syntax to ejs
 autocmd BufNewFile,BufRead *.ejs set syntax=html
 
+" Add html to eex
+autocmd BufNewFile,BufRead *.eex set syntax=html
+
 " Add html syntax to nunjucks
 autocmd BufNewFile,BufRead *.nunjucks set syntax=html
 
@@ -280,15 +288,15 @@ nmap <silent> <leader>tv :TestVisit<CR>
 " Linters setup
 set nocompatible
 filetype off
-let &runtimepath.=',~/.vim/bundle/ale'
 filetype plugin on
-let g:ale_linters = { 'javascript': ['eslint', 'jshint'], 'ruby': ['rubocop'] }
+" let &runtimepath.=',~/.vim/bundle/ale'
+" let g:ale_linters = { 'javascript': ['eslint', 'jshint'], 'ruby': ['rubocop'] }
 " Set this in your vimrc file to disabling highlighting
-let g:ale_set_highlights = 0
+" let g:ale_set_highlights = 0
 
 " Auto complete config.
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 1
+" let g:deoplete#disable_auto_complete = 1
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
 
 function! s:check_back_space() abort "{{{
@@ -306,7 +314,13 @@ nnoremap <Leader>yc :let @+=expand('%:p')<CR>
 nnoremap <leader>yp :let @+=expand('%:p') . ':' . line(".")<CR>
 
 " Auto format config
+" au BufWrite * :Autoformat
+
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:elixir_autoformat_enabled = 0
-let g:mix_format_on_save = 1
+let g:mix_format_on_save = 0
+
+let g:airline#extensions#tabline#enabled = 1
+
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
