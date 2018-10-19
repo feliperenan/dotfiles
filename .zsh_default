@@ -1,0 +1,25 @@
+# Git aliases
+alias g='git status -sb'
+alias gs='git status'
+alias gcm='git checkout master'
+alias grm='git rebase master'
+alias gr='git rebase'
+alias gc='git checkout'
+alias gh='git hist'
+alias gl='git log'
+alias gp='git pull'
+alias gpush='git push -u origin HEAD'
+alias fpush='git push origin HEAD --force-with-lease'
+alias delete-branchs='git branch | xargs git branch -D'
+
+# Vim alias
+alias vim='nvim'
+
+# This alias only works if hub was installed.
+alias hpr='hub pull-request'
+
+# alias cat to ccat (brew install ccat)
+alias cat='ccat'
+
+# Save historic from IEX session
+export ERL_AFLAGS="-kernel shell_history enabled"
