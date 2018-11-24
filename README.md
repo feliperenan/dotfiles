@@ -42,14 +42,14 @@ Copy `.git_template` to your home directory
 cp -r ~/dotfiles/.git_template ~
 ```
 
-Let ctags executable:
-```bash
-chmod +x .git/hooks/ctags
-```
-
 You may need to re-initialize the git inside your project:
 ```bash
 git init
+```
+
+Let ctags executable:
+```bash
+chmod +x .git/hooks/ctags
 ```
 
 Inside your project:
