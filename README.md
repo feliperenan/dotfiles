@@ -65,10 +65,10 @@ So far this commit, CTAGS doesn't support Elixir by default, consider use this [
 
 ### TMUX
 
-Copy `~/dotfiles/.tmux.conf` to your home
+Copy `~/dotfiles/tmux/.tmux.conf` to your home
 
 ```bash
-cp ~/dotfiles/.tmux.conf ~
+cp ~/dotfiles/tmux/.tmux.conf ~
 ```
 
 Install plugins with [tmux-plugins](https://github.com/tmux-plugins/tpm)
