@@ -1,7 +1,7 @@
 set shell=/bin/zsh
 
 set re=1
-set hidden 
+set hidden
 " Leader key
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
@@ -17,68 +17,19 @@ nmap <leader>so :source $MYVIMRC<cr>
 
 " 2 spaces forever :)
 set tabstop=2
-set shiftwidth=2 
+set shiftwidth=2
 set expandtab
 set autoread
 
 " Copy to clipboard from vim
-set clipboard+=unnamed 
-
-" Init Plugins
-call plug#begin('~/.vim/plugged')
-  Plug 'mattn/emmet-vim'
-  Plug 'nanotech/jellybeans.vim'
-  Plug 'mhartington/oceanic-next'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'mattn/gist-vim'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'kana/vim-textobj-user'
-  Plug 'janko-m/vim-test'
-  Plug 'tpope/vim-repeat'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'ntpeters/vim-better-whitespace'
-  Plug 'tpope/vim-fugitive'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'kien/ctrlp.vim'
-  Plug 'Valloric/MatchTagAlways'
-  Plug 'rking/ag.vim'
-  Plug 'danro/rename.vim'
-  Plug 'tpope/vim-surround'
-  Plug 'slashmili/alchemist.vim'
-  Plug 'tpope/vim-endwise'
-  " Plug 'sjbach/lusty'
-  Plug 'scrooloose/nerdtree'
-  Plug 'neomake/neomake'
-  " Plug 'w0rp/ale'
-  " Plug 'chrisbra/vim-diff-enhanced'
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
-  Plug 'vim-scripts/tComment'
-  Plug 'mhinz/vim-mix-format'
-  " Snippets
-  " Plug 'SirVer/ultisnips'
-  " Plug 'honza/vim-snippets'
-  Plug 'bogado/file-line'
-  Plug 'Chiel92/vim-autoformat'
-  Plug 'vim-airline/vim-airline'
-  Plug 'Asheq/close-buffers.vim'  
-  Plug 'junegunn/vim-easy-align'
-call plug#end()
+set clipboard+=unnamed
 
 set termguicolors
-syntax enable 
+syntax enable
 " for vim 8
  if (has("termguicolors"))
   set termguicolors
  endif
-
-colorscheme OceanicNext
-" colorscheme jellybeans 
 
 hi htmlArg gui=italic
 hi Comment gui=italic
@@ -237,6 +188,9 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 " automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
 
+" Load plugins
+source ~/dotfiles/vim/plugins.vim
+
 " Run buffer in postgres as a query
 map <leader>rq :w !psql -d PremiosOnline_development -f -<CR>
 
@@ -289,20 +243,6 @@ nmap <silent> <leader>tv :TestVisit<CR>
 set nocompatible
 filetype off
 filetype plugin on
-" let &runtimepath.=',~/.vim/bundle/ale'
-" let g:ale_linters = { 'javascript': ['eslint', 'jshint'], 'ruby': ['rubocop'] }
-" Set this in your vimrc file to disabling highlighting
-" let g:ale_set_highlights = 0
-
-" Auto complete config.
-let g:deoplete#enable_at_startup = 1
-" let g:deoplete#disable_auto_complete = 1
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
-
-function! s:check_back_space() abort "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -313,14 +253,9 @@ nnoremap <Leader>yc :let @+=expand('%:p')<CR>
 " Copy the current path with line number to clipboard
 nnoremap <leader>yp :let @+=expand('%:p') . ':' . line(".")<CR>
 
-" Auto format config
-" au BufWrite * :Autoformat
-
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 let g:elixir_autoformat_enabled = 0
 let g:mix_format_on_save = 0
-
-let g:airline#extensions#tabline#enabled = 1
 
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>

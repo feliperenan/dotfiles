@@ -10,7 +10,7 @@ Install [vim-plug](https://github.com/junegunn/vim-plug)
 
 Make sure that you have `~/.config/nvim/init.vim` and add it there:
 ```
-source $HOME/dotfiles/init.vim
+source $HOME/dotfiles/vim/init.vim
 ```
 
 ```VIM
@@ -22,7 +22,7 @@ Install [vim-plug](https://github.com/junegunn/vim-plug)
 
 Make sure that you have `~/.vimrc` and add it there:
 ```
-source $HOME/dotfiles/init.vim
+source $HOME/dotfiles/vim/init.vim
 ```
 
 ```VIM
