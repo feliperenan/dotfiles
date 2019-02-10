@@ -32,6 +32,8 @@ call plug#begin('~/.vim/plugged')
   " Open the current file on GitHub
   Plug 'tyru/open-browser.vim'
   Plug 'tyru/open-browser-github.vim'
+  " Plugin for smart auto complete
+  Plug 'Valloric/YouCompleteMe'
 call plug#end()
 
 
