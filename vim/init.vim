@@ -10,7 +10,8 @@ let g:mapleader = "\<SPACE>"
 set guioptions=
 
 " Shortcut to open vim rc
-nmap <leader>vr :sp ~/dotfiles/init.vim<cr>
+nmap <leader>vr :sp ~/dotfiles/vim/init.vim<cr>
+nmap <leader>vp :sp ~/dotfiles/vim/plugins.vim<cr>
 
 " Shortcut to reload vim config
 nmap <leader>so :source $MYVIMRC<cr>
