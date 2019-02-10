@@ -7,7 +7,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'terryma/vim-multiple-cursors'
   Plug 'mattn/gist-vim'
   Plug 'sheerun/vim-polyglot'
-  Plug 'kana/vim-textobj-user'
   Plug 'janko-m/vim-test'
   Plug 'tpope/vim-repeat'
   Plug 'jiangmiao/auto-pairs'
@@ -29,8 +28,10 @@ call plug#begin('~/.vim/plugged')
   " ex. app/models/user.rb:1337
   Plug 'bogado/file-line'
   Plug 'Chiel92/vim-autoformat'
-  Plug 'Asheq/close-buffers.vim'
   Plug 'junegunn/vim-easy-align'
+  " Open the current file on GitHub
+  Plug 'tyru/open-browser.vim'
+  Plug 'tyru/open-browser-github.vim'
 call plug#end()
 
 
