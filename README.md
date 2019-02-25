@@ -72,3 +72,17 @@ cp ~/dotfiles/tmux/.tmux.conf ~
 ```
 
 Install plugins with [tmux-plugins](https://github.com/tmux-plugins/tpm)
+
+#### Fixing neovim background color on tmux
+* .zshrc (or any profile you're using on your terminal)
+```
+if [[ $TERM == xterm ]]; then TERM=xterm-256color; fi
+```
+
+* Ensure that you have the config bellow within `.tmux.conf`
+```
+set -g default-terminal "screen-256color"
+set -ga terminal-overrides ",xterm-256color*:Tc"
+```
+
+More info: https://sunaku.github.io/vim-256color-bce.html
