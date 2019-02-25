@@ -27,10 +27,6 @@ set clipboard+=unnamed
 
 set termguicolors
 syntax enable
-" for vim 8
- if (has("termguicolors"))
-  set termguicolors
- endif
 
 hi htmlArg gui=italic
 hi Comment gui=italic
