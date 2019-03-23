@@ -67,11 +67,13 @@ noremap <leader>r :%s/
 " Paste mode
 nnoremap <leader>o :set invpaste<CR>
 
-" Tired of :w :q etc
+" Tired of :w :q and :W
 nnoremap ;w :w<CR>
 nnoremap ;q :q<CR>
 nnoremap ;wq :wq<CR>
 nnoremap ;qa :qa<CR>
+nnoremap :W :w<CR>
+nnoremap :Wq :wq<CR>
 
 " Selecting last pasted or changed text
 nnoremap <expr> <leader>gp '`[' . strpart(getregtype(), 0, 1) . '`]'
