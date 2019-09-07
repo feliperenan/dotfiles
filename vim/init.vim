@@ -90,7 +90,7 @@ noremap <leader>. :CtrlPTag<CR>
 noremap <leader>b :CtrlPBuffer<CR>
 noremap <leader>m :CtrlPMRU<CR>
 
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage|_build)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage|_build|deps)|(\.(swp|ico|git|svn))$'
 
 "" The Silver Searcher
 if executable('ag')

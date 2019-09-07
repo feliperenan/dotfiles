@@ -1,11 +1,8 @@
 " List of plugins used in ~/dotfiles/vim/init.vim
 
 call plug#begin('~/.vim/plugged')
-  Plug 'mattn/emmet-vim'
-  Plug 'nanotech/jellybeans.vim'
-  Plug 'lifepillar/vim-solarized8'
+  Plug 'arcticicestudio/nord-vim'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'mattn/gist-vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'janko-m/vim-test'
   Plug 'tpope/vim-repeat'
@@ -32,11 +29,8 @@ call plug#begin('~/.vim/plugged')
   " Open the current file on GitHub
   Plug 'tyru/open-browser.vim'
   Plug 'tyru/open-browser-github.vim'
-  " Plugin for smart auto complete
-  Plug 'Valloric/YouCompleteMe'
+  Plug 'vim-airline/vim-airline'
+  Plug 'bling/vim-bufferline'
 call plug#end()
 
-
-set background=light
-colorscheme solarized8
-" colorscheme jellybeans
+colorscheme nord
