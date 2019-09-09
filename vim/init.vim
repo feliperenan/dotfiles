@@ -85,12 +85,13 @@ set splitright
 " Open ctrlp
 set wildignore +=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore +=*/node_modules
+set wildignore +=*/deps/*
 noremap <leader>p :CtrlP<CR>
 noremap <leader>. :CtrlPTag<CR>
 noremap <leader>b :CtrlPBuffer<CR>
 noremap <leader>m :CtrlPMRU<CR>
 
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|coverage|_build|deps)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|deps|bower_components|target|dist|coverage|_build|deps)|(\.(swp|ico|git|svn))$'
 
 "" The Silver Searcher
 if executable('ag')
@@ -157,6 +158,8 @@ nnoremap <silent> <Leader>c :NERDTreeFind<CR>
 " Making it prettier
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let g:NERDTreeIgnore=['\~$', 'deps', '_build']
+let NERDTreeShowHidden=1
 
 " Add javascript syntax to es6, es7 files
 autocmd BufNewFile,BufRead *.es6   set syntax=javascript
@@ -180,6 +183,10 @@ autocmd BufNewFile,BufRead *.nunjucks set syntax=html
 
 " Add json syntax to babelrc
 autocmd BufNewFile,BufRead *.babelrc set syntax=json
+
+" Add Slim syntax
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+autocmd BufNewFile,BufRead *.lime setlocal filetype=slim
 
 " Add spell checking and wrap at 72 columns git commit message
 autocmd Filetype gitcommit setlocal spell textwidth=72
@@ -258,3 +265,6 @@ let g:elixir_autoformat_enabled = 0
 let g:mix_format_on_save = 0
 
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+
+" Set mouse on
+set mouse=a

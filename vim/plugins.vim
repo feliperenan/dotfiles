@@ -31,6 +31,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tyru/open-browser-github.vim'
   Plug 'vim-airline/vim-airline'
   Plug 'bling/vim-bufferline'
+  Plug 'slim-template/vim-slim'
 call plug#end()
 
 colorscheme nord
