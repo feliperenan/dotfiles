@@ -200,9 +200,16 @@ source ~/dotfiles/vim/plugins.vim
 " Run buffer in postgres as a query
 map <leader>rq :w !psql -d PremiosOnline_development -f -<CR>
 
-" Change buffers
+" Buffers
+
+" Goes to the next buffer
 map ,, :bnext<cr>
+
+" Goes to the previous buffer
 map ,. :bprevious<cr>
+
+" Create a empty buffer (like a new tab)
+map ,t :enew<cr>
 
 command! Vb normal! <C-v>
 
