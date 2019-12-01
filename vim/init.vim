@@ -50,6 +50,7 @@ set history=100
 set undolevels=10000  " Use more levels of undo"
 " dont use backup files
 set nobackup
+set nowritebackup
 set noswapfile
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " store swap files here
 " Search things
@@ -60,6 +61,46 @@ set nohlsearch  " dont highlight search results
 set ttimeoutlen=0 " Remove 'esc' delay
 set tabstop=2
 set shiftwidth=2
+
+"===== begin COC setup ====
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nmap <leader>rn <Plug>(coc-rename)
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+"===== End COC setup ====
 
 " Start find/replace
 noremap <leader>r :%s/

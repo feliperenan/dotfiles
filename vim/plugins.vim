@@ -47,6 +47,9 @@ call plug#begin('~/.vim/plugged')
   " 'case', 'cond', 'when', 'with', 'for', 'if', 'defprotocol', 'defmodule', 'defmacro', 'defmacrop',
   " 'defimpl', 'defp', 'def'.
   Plug 'andyl/vim-textobj-elixir'
+
+  " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 colorscheme nord
