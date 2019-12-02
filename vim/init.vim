@@ -316,3 +316,4 @@ au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 
 " Set mouse on
 set mouse=a
+

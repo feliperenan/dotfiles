@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'kien/ctrlp.vim'
-  Plug 'Valloric/MatchTagAlways'
   Plug 'rking/ag.vim'
   Plug 'danro/rename.vim'
   Plug 'tpope/vim-surround'
@@ -30,7 +29,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tyru/open-browser.vim'
   Plug 'tyru/open-browser-github.vim'
   Plug 'vim-airline/vim-airline'
-  Plug 'bling/vim-bufferline'
   Plug 'slim-template/vim-slim'
 
   " Vim plugin to SUPPORT writing user-defined text objects, especially, simple text objects which
