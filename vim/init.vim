@@ -259,7 +259,7 @@ nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nnoremap <leader>= :wincmd =<cr>
 
 " Set terminal to vim-test
-let g:test#strategy = 'neovim'
+let g:test#strategy = 'vimux'
 
 " Setup Elixir Umbrella test
 function! ElixirUmbrellaTransform(cmd) abort

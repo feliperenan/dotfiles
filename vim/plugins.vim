@@ -31,6 +31,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'slim-template/vim-slim'
 
+  " Creates or run commands from VIM on existing TMUX panes.
+  Plug 'benmills/vimux'
+
   " Vim plugin to SUPPORT writing user-defined text objects, especially, simple text objects which
   " can be defined by regular expression. This plugin only provides functions to support writing
   " user-defined text objects, and this plugin does not provide any useful text objects.
