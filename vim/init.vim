@@ -317,3 +317,27 @@ au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 " Set mouse on
 set mouse=a
 
+" Vim & Tmux
+
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <Leader>vs "vy :call VimuxSlime()<CR>
+
+" Select current paragraph and send it to tmux
+nmap <Leader>vs vip<LocalLeader>vs<CR>
+
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Close vim tmux runner opened by VimuxRunCommand
+map <Leader>vq :VimuxCloseRunner<CR>
+
+" Zoom the runner pane (use <bind-key> z to restore runner pane)
+map <Leader>vz :call VimuxZoomRunner()<CR>
+
+" Open tmux pane or use the nearest one.
+map <Leader>vo :call VimuxOpenRunner()<CR>
