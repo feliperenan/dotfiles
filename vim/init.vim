@@ -341,3 +341,6 @@ map <Leader>vz :call VimuxZoomRunner()<CR>
 
 " Open tmux pane or use the nearest one.
 map <Leader>vo :call VimuxOpenRunner()<CR>
+
+" Format JSON usin jq library: https://github.com/stedolan/jq
+map <Leader>jq :%!jq<CR>
