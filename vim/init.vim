@@ -1,7 +1,7 @@
 set shell=/bin/zsh
 
-set re=1
 set hidden
+
 " Leader key
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
@@ -11,16 +11,12 @@ set guioptions=
 
 " Shortcut to open vim rc
 nmap <leader>vr :sp ~/dotfiles/vim/init.vim<cr>
+
+" Shortcut to open vim plugins
 nmap <leader>vp :sp ~/dotfiles/vim/plugins.vim<cr>
 
 " Shortcut to reload vim config
 nmap <leader>so :source $MYVIMRC<cr>
-
-" 2 spaces forever :)
-set tabstop=2
-set shiftwidth=2
-set expandtab
-set autoread
 
 " Copy to clipboard from vim
 set clipboard+=unnamed
@@ -64,22 +60,11 @@ set shiftwidth=2
 
 "===== begin COC setup ====
 
-" Better display for messages
-set cmdheight=2
-
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -154,11 +139,6 @@ nnoremap \ :Ag<SPACE>
 " allow saving a sudo file if forgot to open as sudo
 cmap w!! w !sudo tee % >/dev/null
 
-" Relative numbers
-set relativenumber " use relative numbers
-autocmd InsertEnter * silent! : norelativenumber
-autocmd InsertLeave,BufNewFile,VimEnter * silent! : relativenumber
-
 " Disable arrow keys"
 nnoremap <up>    <nop>
 nnoremap <down>  <nop>
@@ -209,18 +189,8 @@ autocmd BufNewFile,BufRead *.es7   set syntax=javascript
 " Add javascript syntax to typescript
 autocmd BufNewFile,BufRead *.ts set syntax=javascript
 
-" Javascript erb files
-autocmd BufRead,BufNewFile *.js.erb  set filetype=javascript
-autocmd BufRead,BufNewFile *.jsx.erb set filetype=javascript
-
-" Add html syntax to ejs
-autocmd BufNewFile,BufRead *.ejs set syntax=html
-
 " Add html to eex
 autocmd BufNewFile,BufRead *.eex set syntax=html
-
-" Add html syntax to nunjucks
-autocmd BufNewFile,BufRead *.nunjucks set syntax=html
 
 " Add json syntax to babelrc
 autocmd BufNewFile,BufRead *.babelrc set syntax=json
@@ -232,27 +202,8 @@ autocmd BufNewFile,BufRead *.lime setlocal filetype=slim
 " Add spell checking and wrap at 72 columns git commit message
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
-" automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
-
 " Load plugins
 source ~/dotfiles/vim/plugins.vim
-
-" Run buffer in postgres as a query
-map <leader>rq :w !psql -d PremiosOnline_development -f -<CR>
-
-" Buffers
-
-" Goes to the next buffer
-map ,, :bnext<cr>
-
-" Goes to the previous buffer
-map ,. :bprevious<cr>
-
-" Create a empty buffer (like a new tab)
-map ,t :enew<cr>
-
-command! Vb normal! <C-v>
 
 " zoom a vim pane, <C-w>= to re-balance
 nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>

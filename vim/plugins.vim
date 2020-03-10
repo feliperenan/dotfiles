@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'slashmili/alchemist.vim'
   Plug 'tpope/vim-endwise'
   Plug 'scrooloose/nerdtree'
-  Plug 'neomake/neomake'
   Plug 'vim-scripts/tComment'
   Plug 'mhinz/vim-mix-format'
   " Plugin to enable vim to open the file in the spefic line
