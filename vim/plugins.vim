@@ -10,7 +10,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'tpope/vim-fugitive'
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'kien/ctrlp.vim'
   Plug 'rking/ag.vim'
   Plug 'danro/rename.vim'
   Plug 'tpope/vim-surround'
@@ -48,8 +47,7 @@ call plug#begin('~/.vim/plugged')
   " 'defimpl', 'defp', 'def'.
   Plug 'andyl/vim-textobj-elixir'
 
-  " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 call plug#end()
 
 colorscheme nord

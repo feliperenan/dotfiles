@@ -58,35 +58,6 @@ set ttimeoutlen=0 " Remove 'esc' delay
 set tabstop=2
 set shiftwidth=2
 
-"===== begin COC setup ====
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-"===== End COC setup ====
-
 " Start find/replace
 noremap <leader>r :%s/
 
@@ -108,28 +79,9 @@ nnoremap <expr> <leader>gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 set splitbelow
 set splitright
 
-" Open ctrlp
-set wildignore +=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore +=*/node_modules
-set wildignore +=*/deps/*
-noremap <leader>p :CtrlP<CR>
-noremap <leader>. :CtrlPTag<CR>
-noremap <leader>b :CtrlPBuffer<CR>
-noremap <leader>m :CtrlPMRU<CR>
-
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|deps|bower_components|target|dist|coverage|_build|deps)|(\.(swp|ico|git|svn))$'
-
-"" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --ignore node_modules -g ""'
-
-  " " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
+" Open Clap (browser explorer)
+noremap <leader>p :Clap files<CR>
+noremap <leader>b :Clap buffers<CR>
 
 " bind K to grep word under cursor
 nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
