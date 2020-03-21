@@ -1,166 +1,464 @@
-set shell=/bin/zsh
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Based on: https://github.com/amix/vimrc
+"
+" Sections:
+"    -> Plugins
+"    -> General
+"    -> VIM user interface
+"    -> Colors and Fonts
+"    -> Files and backups
+"    -> Text, tab and indent related
+"    -> Visual mode related
+"    -> Moving around, tabs and buffers
+"    -> Status line
+"    -> Editing mappings
+"    -> vimgrep searching and cope displaying
+"    -> Spell checking
+"    -> Fuzzy Finder
+"    -> File system explorer
+"    -> VIM test
+"    -> Tmux integration
+"    -> Misc
+"    -> Helper functions
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set hidden
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
+  " This plugin provides a start screen for Vim and Neovim.
+  Plug 'mhinz/vim-startify'
 
-" Leader key
+  " Colorschema. Using my fork until they merge the PR to improve Elixir sintax.
+  Plug 'feliperenan/nord-vim'
+
+  " Display Indentation line
+  Plug 'Yggdroot/indentLine'
+
+  " Add syntax for programming languages on demand.
+  Plug 'sheerun/vim-polyglot'
+
+  " Run tests from vim.
+  Plug 'janko-m/vim-test'
+
+  " Repeat any command with dot .
+  Plug 'tpope/vim-repeat'
+
+  " Insert or delete brackets, parens, quotes in pair.
+  Plug 'jiangmiao/auto-pairs'
+
+  " Add Git integration commands.
+  Plug 'tpope/vim-fugitive'
+
+  " Use AG the silver searcher
+  Plug 'rking/ag.vim'
+
+  " Easialy rename files using :Rename filename newfilename
+  Plug 'danro/rename.vim'
+
+  " Easily replace commas, quotes, parentheses or edit words surround by it.
+  Plug 'tpope/vim-surround'
+
+  " Add some Elixir features
+  Plug 'slashmili/alchemist.vim'
+
+  " Helpfull for formating Elixir code
+  Plug 'mhinz/vim-mix-format'
+
+  " Asynchronous linting and make framework for Neovim/Vim
+  Plug 'neomake/neomake'
+
+  " File tree
+  Plug 'scrooloose/nerdtree'
+
+  " Add shortcuts for commenting block of codes.
+  Plug 'vim-scripts/tComment'
+
+  " Plugin to enable vim to open the file in the spefic line
+  " ex. app/models/user.rb:1337
+  Plug 'bogado/file-line'
+
+  " Open the current file on GitHub
+  Plug 'tyru/open-browser.vim'
+  Plug 'tyru/open-browser-github.vim'
+
+  " Awesome vim airline with several options and themes.
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
+  " TODO: check ift's needed since I use vim-polyglot
+  " Plug 'slim-template/vim-slim'
+
+  " Creates or run commands from VIM on existing TMUX panes.
+  Plug 'benmills/vimux'
+
+  " Vim plugin to SUPPORT writing user-defined text objects, especially, simple text objects which
+  " can be defined by regular expression. This plugin only provides functions to support writing
+  " user-defined text objects, and this plugin does not provide any useful text objects.
+  Plug 'kana/vim-textobj-user'
+
+  " Depends on 'vim-textobj-user'.
+  " Plugin to provide text objects to select a portion of the current line
+  Plug 'kana/vim-textobj-line'
+
+  " Depends on 'vim-textobj-user'.
+  " Elixir text objects include: 'setup_all', 'setup', 'describe', 'test', 'unless', 'quote',
+  " 'case', 'cond', 'when', 'with', 'for', 'if', 'defprotocol', 'defmodule', 'defmacro', 'defmacrop',
+  " 'defimpl', 'defp', 'def'.
+  Plug 'andyl/vim-textobj-elixir'
+
+  " Fuzzy finder
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
 
-" Remove scrolls bars from macvim
-set guioptions=
+set mouse=a
+
+" Use <leader>kl for reloading vim config
+nmap <leader>so :source $MYVIMRC<cr>
 
 " Shortcut to open vim rc
 nmap <leader>vr :sp ~/dotfiles/vim/init.vim<cr>
 
-" Shortcut to open vim plugins
-nmap <leader>vp :sp ~/dotfiles/vim/plugins.vim<cr>
+" Preview substitute command on neovim
+if has("nvim")
+    set inccommand=nosplit
+endif
 
-" Shortcut to reload vim config
-nmap <leader>so :source $MYVIMRC<cr>
-
-" Copy to clipboard from vim
+" Copy to clipboard from vim by default
 set clipboard+=unnamed
 
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+au FocusGained,BufEnter * checktime
+
+" Doesn't show search highlights
+set nohlsearch
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+
+" Use <leader>bh to open startify (Home)
+nmap <leader>bh :Startify<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en'
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+" Turn on the Wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=1
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+endif
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+" Show line number
+set relativenumber number
+
+" Show highlight the cursor line
+set cursorline
+
+let g:startify_relative_path = 1
+let g:startify_change_to_vcs_root = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
 set termguicolors
 syntax enable
+colorscheme nord
+set background=dark
 
-hi htmlArg gui=italic
-hi Comment gui=italic
-hi Type    gui=italic
-hi htmlArg cterm=italic
-hi Comment cterm=italic
-hi Type    cterm=italic
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
 
-set visualbell    " don't beep
-set noerrorbells  " don't beep
-set autoread " Auto read when a file is changed on disk"
-set autoindent
-set copyindent
-set number " line numbers
-set relativenumber number
-set showmode " always show mode
-set showcmd " Show (partial) command in status line.
-set noshowmode  " dont show default status line
-set cursorline " highlight current line
-set history=100
-set undolevels=10000  " Use more levels of undo"
-" dont use backup files
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+let g:airline_powerline_fonts = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
-set nowritebackup
+set nowb
 set noswapfile
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp   " store swap files here
-" Search things
-set incsearch   " show search matches as you type
-set ignorecase  " case insensitive search
-set smartcase   " If a capital letter is included in search, make it case-sensitive
-set nohlsearch  " dont highlight search results
-set ttimeoutlen=0 " Remove 'esc' delay
-set tabstop=2
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 2 spaces
 set shiftwidth=2
+set tabstop=2
 
-" Start find/replace
-noremap <leader>r :%s/
+" Linebreak on 500 characters
+set lbr
+set tw=500
 
-" Paste mode
-nnoremap <leader>o :set invpaste<CR>
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
 
-" Tired of :w :q and :W
-nnoremap ;w :w<CR>
-nnoremap ;q :q<CR>
-nnoremap ;wq :wq<CR>
-nnoremap ;qa :qa<CR>
-nnoremap :W :w<CR>
-nnoremap :Wq :wq<CR>
 
-" Selecting last pasted or changed text
-nnoremap <expr> <leader>gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Search word under cursor without moving the cursor. useful for using cgn and then
+" change next words.
+nnoremap * *``
+nnoremap # #``
 
-" Open splits on right and below
-set splitbelow
-set splitright
+" Find & Replace with <leader> r from previous search.
+nnoremap <Leader>r :%s///g<Left><Left>
+xnoremap <Leader>r :s///g<Left><Left>
 
-" Open Clap (browser explorer)
-noremap <leader>p :Clap files<CR>
-noremap <leader>b :Clap buffers<CR>
+" use F to start a search from a word under the cursor
+nnoremap F :Ag "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-" bind K to grep word under cursor
-nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" grep word under cursor and populate quickfix window
+" :nnoremap F :grep -r <C-R><C-W> ./src<CR><CR>:copen<CR><CR>
 
+" use \ to start searching
 nnoremap \ :Ag<SPACE>
 
-" allow saving a sudo file if forgot to open as sudo
-cmap w!! w !sudo tee % >/dev/null
 
-" Disable arrow keys"
-nnoremap <up>    <nop>
-nnoremap <down>  <nop>
-nnoremap <left>  <nop>
-nnoremap <right> <nop>
-inoremap <up>    <nop>
-inoremap <down>  <nop>
-inoremap <left>  <nop>
-inoremap <right> <nop>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader>dh :noh<cr>
 
-" Window movement shortcuts
-" move to the window in the direction shown, or create a new window
-function! WinMove(key)
-   let t:curwin = winnr()
-   exec "wincmd ".a:key
-   if (t:curwin == winnr())
-       if (match(a:key,'[jk]'))
-           wincmd v
-       else
-           wincmd s
-       endif
-       exec "wincmd ".a:key
-   endif
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
+
+"Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  silent! %s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+  autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.ex,.exs,*.html,*.slime,*.vim :call CleanExtraSpaces()
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fuzzy Finder
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
-" Split navigation with something fancy :)
-map <silent> <leader>h :call WinMove('h')<CR>
-map <silent> <leader>j :call WinMove('j')<CR>
-map <silent> <leader>k :call WinMove('k')<CR>
-map <silent> <leader>l :call WinMove('l')<CR>
+command! ProjectFiles execute 'Files' s:find_git_root()
 
-" Toggle NerdTree
+" Use <Leader>p to start searching always from project directory.
+nnoremap <silent> <leader>p :ProjectFiles<cr>
+
+" Use <leader>bb to show buffer list
+nnoremap <silent> <leader>bb :Buffers<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => File system explorer
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use <leader>f for toggling NerdTree
 noremap <Leader>f :NERDTreeToggle<CR>
+
+" Use <leader>n for opening NerdTree
 noremap <Leader>n :NERDTreeFind<CR>
 
-" Open NerdTree on current file
+" Use <leader>c for opening NerdTree on current file
 nnoremap <silent> <Leader>c :NERDTreeFind<CR>
+
 " Making it prettier
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeIgnore=['\~$', 'deps', '_build']
 let NERDTreeShowHidden=1
 
-" Add javascript syntax to es6, es7 files
-autocmd BufNewFile,BufRead *.es6   set syntax=javascript
-autocmd BufNewFile,BufRead *.es7   set syntax=javascript
-
-" Add javascript syntax to typescript
-autocmd BufNewFile,BufRead *.ts set syntax=javascript
-
-" Add html to eex
-autocmd BufNewFile,BufRead *.eex set syntax=html
-
-" Add json syntax to babelrc
-autocmd BufNewFile,BufRead *.babelrc set syntax=json
-
-" Add Slim syntax
-autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
-autocmd BufNewFile,BufRead *.lime setlocal filetype=slim
-
-" Add spell checking and wrap at 72 columns git commit message
-autocmd Filetype gitcommit setlocal spell textwidth=72
-
-" Load plugins
-source ~/dotfiles/vim/plugins.vim
-
-" zoom a vim pane, <C-w>= to re-balance
-nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
-nnoremap <leader>= :wincmd =<cr>
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM test
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set terminal to vim-test
 let g:test#strategy = 'vimux'
 
@@ -176,18 +474,13 @@ endfunction
 " Remap ESC to not close the test window.
 tnoremap <Esc> <C-\><C-n>
 
+" Thanks to remap above it's need to remap ESC to close FZF.
+au TermOpen * tnoremap <Esc> <c-\><c-n>
+au FileType fzf tunmap <Esc>
+
 let g:test#preserve_screen = 1
 let g:test#custom_transformations = {'elixir_umbrella': function('ElixirUmbrellaTransform')}
 let g:test#transformation = 'elixir_umbrella'
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
 
 " Vim-test key bindings
 nmap <silent> <leader>tt :TestFile<CR>
@@ -196,32 +489,9 @@ nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 
-" Linters setup
-set nocompatible
-filetype off
-filetype plugin on
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Copy the current path to clipboard
-nnoremap <Leader>yc :let @+=expand('%:p')<CR>
-
-" Copy the current path with line number to clipboard
-nnoremap <leader>yp :let @+=expand('%:p') . ':' . line(".")<CR>
-
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:elixir_autoformat_enabled = 0
-let g:mix_format_on_save = 0
-
-au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
-
-" Set mouse on
-set mouse=a
-
-" Vim & Tmux
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Tmux integration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! VimuxSlime()
   call VimuxSendText(@v)
   call VimuxSendKeys("Enter")
@@ -245,5 +515,82 @@ map <Leader>vz :call VimuxZoomRunner()<CR>
 " Open tmux pane or use the nearest one.
 map <Leader>vo :call VimuxOpenRunner()<CR>
 
-" Format JSON usin jq library: https://github.com/stedolan/jq
-map <Leader>jq :%!jq<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>o :setlocal paste!<cr>
+
+" Use <leader>y to copy the current path to clipboard
+nnoremap <Leader>y :let @+=expand('%:p')<CR>
+
+" Use <leader>yl copy the current path with line number to clipboard
+nnoremap <leader>yl :let @+=expand('%:p') . ':' . line(".")<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Linter setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+  if &paste
+    return 'PASTE MODE  '
+  endif
+  return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
+
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
+
+  if bufnr("%") == l:currentBufNum
+    new
+  endif
+
+  if buflisted(l:currentBufNum)
+    execute("bdelete! ".l:currentBufNum)
+  endif
+endfunction
+
+function! CmdLine(str)
+  call feedkeys(":" . a:str)
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+  let l:saved_reg = @"
+  execute "normal! vgvy"
+
+  let l:pattern = escape(@", "\\/.*'$^~[]")
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+  if a:direction == 'gv'
+    call CmdLine("Ack '" . l:pattern . "' " )
+  elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+  endif
+
+  let @/ = l:pattern
+  let @" = l:saved_reg
+endfunction
