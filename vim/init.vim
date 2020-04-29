@@ -457,15 +457,6 @@ let NERDTreeShowHidden=1
 " Set terminal to vim-test
 let g:test#strategy = 'vimux'
 
-" Setup Elixir Umbrella test
-function! ElixirUmbrellaTransform(cmd) abort
-  if match(a:cmd, 'apps/') != -1
-    return substitute(a:cmd, 'mix test apps/\([^/]*/\)', 'cd apps/\1 \&\& mix test ', '')
-  else
-    return a:cmd
-  end
-endfunction
-
 " Remap ESC to not close the test window.
 tnoremap <Esc> <C-\><C-n>
 
@@ -474,8 +465,7 @@ au TermOpen * tnoremap <Esc> <c-\><c-n>
 au FileType fzf tunmap <Esc>
 
 let g:test#preserve_screen = 1
-let g:test#custom_transformations = {'elixir_umbrella': function('ElixirUmbrellaTransform')}
-let g:test#transformation = 'elixir_umbrella'
+let g:test#filename_modifier = ":."
 
 " Vim-test key bindings
 nmap <silent> <leader>tt :TestFile<CR>
