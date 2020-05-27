@@ -63,6 +63,9 @@ call plug#begin('~/.vim/plugged')
   " Add some Elixir features
   Plug 'slashmili/alchemist.vim'
 
+  " Smart auto-complete and works nice with alchemist
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
   " Helpfull for formating Elixir code
   Plug 'mhinz/vim-mix-format'
 
@@ -273,6 +276,9 @@ let g:airline_powerline_fonts = 1
 " Add Slim syntax
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufNewFile,BufRead *.lime setlocal filetype=slim
+
+" Disable Syntax Concealing in markdown
+set conceallevel=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -525,6 +531,9 @@ nnoremap <leader>yl :let @+=expand('%:p') . ':' . line(".")<CR>
 " Move selected stuffs up/down with J and K
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
+" Initializes deocomplete on VIM start
+let g:deoplete#enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Linter setup
