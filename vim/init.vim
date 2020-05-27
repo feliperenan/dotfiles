@@ -463,6 +463,7 @@ tnoremap <Esc> <C-\><C-n>
 " Thanks to remap above it's need to remap ESC to close FZF.
 au TermOpen * tnoremap <Esc> <c-\><c-n>
 au FileType fzf tunmap <Esc>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 let g:test#preserve_screen = 1
 let g:test#filename_modifier = ":."
@@ -520,6 +521,10 @@ nnoremap <Leader>y :let @+=expand('%:p')<CR>
 
 " Use <leader>yl copy the current path with line number to clipboard
 nnoremap <leader>yl :let @+=expand('%:p') . ':' . line(".")<CR>
+
+" Move selected stuffs up/down with J and K
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Linter setup
