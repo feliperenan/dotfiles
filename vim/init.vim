@@ -60,18 +60,13 @@ call plug#begin('~/.vim/plugged')
   " Easily replace commas, quotes, parentheses or edit words surround by it.
   Plug 'tpope/vim-surround'
 
-  " Add some Elixir features
+  " Vim linter
+  Plug 'dense-analysis/ale'
+
+  " Elixir LS
   Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
-  Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-
-  " Smart auto-complete and works nice with alchemist
-  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-  " Asynchronous linting and make framework for Neovim/Vim
-  Plug 'neomake/neomake'
-
-  " Helpfull for formating Elixir code
-  Plug 'mhinz/vim-mix-format'
+  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+  Plug 'amiralies/coc-elixir', {'do': 'yarn install && yarn prepack'}
 
   " File tree
   Plug 'scrooloose/nerdtree'
@@ -167,6 +162,11 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " Use <leader>bh to open startify (Home)
 nmap <leader>bh :Startify<cr>
+
+" COC settings
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> <leader>co  :<C-u>CocList outline<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -545,5 +545,15 @@ vnoremap K :m '<-2<CR>gv=gv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Linter setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call neomake#configure#automake('w')
+let g:ale_fixers  = {'elixir': ['mix_format']}
+let g:ale_linters = {'elixir': ['elixir-ls']}
+
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+
+let b:ale_elixir_elixir_ls_config = {
+\   'elixirLS': {
+\     'dialyzerEnabled': v:false,
+\   },
+\}
 
