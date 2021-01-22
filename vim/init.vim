@@ -119,6 +119,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-projectionist'
   Plug 'c-brenn/fuzzy-projectionist.vim'
   Plug 'andyl/vim-projectionist-elixir'
+
+  " Add earthly build syntax
+  Plug 'earthly/earthly.vim', { 'branch': 'main' }
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
