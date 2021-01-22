@@ -32,6 +32,7 @@ call plug#begin('~/.vim/plugged')
 
   " Colorschema. Using my fork until they merge the PR to improve Elixir sintax.
   Plug 'feliperenan/nord-vim'
+  Plug 'nightsense/snow'
 
   " Display Indentation line
   Plug 'Yggdroot/indentLine'
@@ -113,6 +114,14 @@ call plug#begin('~/.vim/plugged')
 
   " Quick search and replace for Vim
   Plug 'hauleth/sad.vim'
+
+  " Quickly navigation among Elixir files
+  Plug 'tpope/vim-projectionist'
+  Plug 'c-brenn/fuzzy-projectionist.vim'
+  Plug 'andyl/vim-projectionist-elixir'
+
+  " Add earthly build syntax
+  Plug 'earthly/earthly.vim', { 'branch': 'main' }
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -255,8 +264,8 @@ let g:startify_change_to_vcs_root = 1
 " Enable syntax highlighting
 set termguicolors
 syntax enable
-colorscheme nord
-set background=dark
+colorscheme snow
+set background=light
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -273,6 +282,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 let g:airline_powerline_fonts = 1
+let g:airline_theme='snow_light'
 
 " Add Slim syntax
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
@@ -280,6 +290,22 @@ autocmd BufNewFile,BufRead *.lime setlocal filetype=slim
 
 " Disable Syntax Concealing in markdown
 set conceallevel=2
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -466,6 +492,7 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeIgnore=['\~$', 'deps', '_build']
 let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM test
