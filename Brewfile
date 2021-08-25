@@ -1,22 +1,22 @@
-# specify a directory to install
-cask_args appdir: '/Applications'
-
-tap "homebrew/core"
 tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
 tap "homebrew/services"
+tap "romkatv/powerlevel10k"
 brew "autoconf"
 brew "automake"
+brew "openssl@1.1"
+brew "asdf"
+brew "autojump"
 brew "ccat"
 brew "cmake"
 brew "fzf"
+brew "gawk"
+brew "gnupg"
 brew "hub"
+brew "neovim"
 brew "the_silver_searcher"
+brew "tmux"
 brew "tree"
-
-cask 'google-chrome'
-cask 'dropbox'
-cask 'spectacle'
-cask 'grammarly'
-cask 'alfred'
-cask 'iterm2'
-cask 'spotify'
+brew "wxwidgets"
+brew "romkatv/powerlevel10k/powerlevel10k"
