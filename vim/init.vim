@@ -27,12 +27,16 @@
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
+  " Add golang support
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
   " This plugin provides a start screen for Vim and Neovim.
   Plug 'mhinz/vim-startify'
 
   " Colorschema. Using my fork until they merge the PR to improve Elixir sintax.
   Plug 'feliperenan/nord-vim'
   Plug 'nightsense/snow'
+  Plug 'drewtempelmeyer/palenight.vim'
 
   " Display Indentation line
   Plug 'Yggdroot/indentLine'
@@ -51,9 +55,6 @@ call plug#begin('~/.vim/plugged')
 
   " Add Git integration commands.
   Plug 'tpope/vim-fugitive'
-
-  " Use AG the silver searcher
-  Plug 'rking/ag.vim'
 
   " Easialy rename files using :Rename filename newfilename
   Plug 'danro/rename.vim'
@@ -122,6 +123,15 @@ call plug#begin('~/.vim/plugged')
 
   " Add earthly build syntax
   Plug 'earthly/earthly.vim', { 'branch': 'main' }
+
+  " Vue JS syntax
+  Plug 'posva/vim-vue'
+  Plug 'pangloss/vim-javascript'
+
+  " Use RipGrep in Vim and display results in a quickfix list
+  " Word under cursor will be searched if no argument is passed to Rg
+  " Disable for now since :Rg command uses FZF without this plugin.
+  " Plug 'jremmen/vim-ripgrep'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -131,6 +141,38 @@ call plug#end()
 " like <leader>w saves the current file
 let mapleader = "\<SPACE>"
 let g:mapleader = "\<SPACE>"
+
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
+" Remap Y to copy line starting from cursos. As D.
+noremap Y y$
+
+" Undo break points
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
+" Jumlist mutations
+noremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+noremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+
+" Cursor to yellow on insert mode
+" Blue on command/other mode
+" Note the use of hex codes (ie 3971ED)
+if exists('$TMUX')
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\033]Pl3971ED\033\\"
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\033]PlFBA922\033\\"
+    silent !echo -ne "\<Esc>Ptmux;\<Esc>\033]Pl3971ED\033\\"
+    autocmd VimLeave * silent !echo -ne "\<Esc>Ptmux;\<Esc>\033]Pl3971ED\033\\"
+else
+    let &t_EI = "\033]Pl3971ED\033\\"
+    let &t_SI = "\033]PlFBA922\033\\"
+    silent !echo -ne "\033]Pl3971ED\033\\"
+    autocmd VimLeave * silent !echo -ne "\033]Pl3971ED\033\\"
+endif
 
 set mouse=a
 
@@ -264,8 +306,12 @@ let g:startify_change_to_vcs_root = 1
 " Enable syntax highlighting
 set termguicolors
 syntax enable
-colorscheme snow
-set background=light
+" colorscheme snow
+" set background=light
+" colorscheme nord
+set background=dark
+colorscheme palenight
+let g:palenight_terminal_italics=1
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -282,7 +328,9 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme='snow_light'
+" let g:airline_theme='snow_light'
+" let g:airline_theme='nord'
+let g:airline_theme = "palenight"
 
 " Add Slim syntax
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
@@ -352,13 +400,20 @@ nnoremap <Leader>r :%s///g<Left><Left>
 xnoremap <Leader>r :s///g<Left><Left>
 
 " use F to start a search from a word under the cursor
-nnoremap F :Ag "\b<C-R><C-W>\b"<CR>:cw<CR>
+" nnoremap F :Rg "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " grep word under cursor and populate quickfix window
 " :nnoremap F :grep -r <C-R><C-W> ./src<CR><CR>:copen<CR><CR>
 
 " use \ to start searching
-nnoremap \ :Ag<SPACE>
+" nnoremap \ :Rg<SPACE>
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" Don't bring files to the search and use :Find as command.
+command! -bang -nargs=* Find call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+" Set rg when using grep
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -372,6 +427,12 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Disable arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
@@ -492,13 +553,14 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeIgnore=['\~$', 'deps', '_build']
 let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen=1
+" let NERDTreeQuitOnOpen=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM test
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set terminal to vim-test
-let g:test#strategy = 'vimux'
+" let g:test#strategy = 'vimux'
+let g:test#strategy = 'neovim'
 
 " Remap ESC to not close the test window.
 tnoremap <Esc> <C-\><C-n>
@@ -506,7 +568,8 @@ tnoremap <Esc> <C-\><C-n>
 " Thanks to remap above it's need to remap ESC to close FZF.
 au TermOpen * tnoremap <Esc> <c-\><c-n>
 au FileType fzf tunmap <Esc>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg --files'
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all,ctrl-d:deselect-all'
 
 let g:test#preserve_screen = 1
 let g:test#filename_modifier = ":."
@@ -584,3 +647,8 @@ let b:ale_elixir_elixir_ls_config = {
 \   },
 \}
 
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
