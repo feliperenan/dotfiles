@@ -110,8 +110,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'andyl/vim-textobj-elixir'
 
   " Fuzzy finder
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
 
   " Quick search and replace for Vim
   Plug 'hauleth/sad.vim'
@@ -127,11 +127,6 @@ call plug#begin('~/.vim/plugged')
   " Vue JS syntax
   Plug 'posva/vim-vue'
   Plug 'pangloss/vim-javascript'
-
-  " Use RipGrep in Vim and display results in a quickfix list
-  " Word under cursor will be searched if no argument is passed to Rg
-  " Disable for now since :Rg command uses FZF without this plugin.
-  " Plug 'jremmen/vim-ripgrep'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -218,6 +213,13 @@ nmap <leader>bh :Startify<cr>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> <leader>co  :<C-u>CocList outline<CR>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>p <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -335,25 +337,7 @@ let g:airline_theme = "palenight"
 " Add Slim syntax
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufNewFile,BufRead *.lime setlocal filetype=slim
-
-" Disable Syntax Concealing in markdown
-set conceallevel=2
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-            \ { 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'border':  ['fg', 'Ignore'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
+autocmd BufNewFile,BufRead *.heex setlocal filetype=html
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -363,8 +347,6 @@ set nobackup
 set nowb
 set noswapfile
 
-set conceallevel=0
-let g:vim_markdown_conceal = 0
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -410,7 +392,6 @@ xnoremap <Leader>r :s///g<Left><Left>
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Don't bring files to the search and use :Find as command.
-command! -bang -nargs=* Find call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 " Set rg when using grep
 set grepprg=rg\ --vimgrep\ --smart-case\ --follow
@@ -521,26 +502,11 @@ nmap <leader>l :vsplit<CR><C-w>l
 nmap <leader>j :split<CR><C-w>j
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fuzzy Finder
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-
-command! ProjectFiles execute 'Files' s:find_git_root()
-
-" Use <Leader>p to start searching always from project directory.
-nnoremap <silent> <leader>p :ProjectFiles<cr>
-
-" Use <leader>bb to show buffer list
-nnoremap <silent> <leader>bb :Buffers<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => File system explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use <leader>f for toggling NerdTree
-noremap <Leader>f :NERDTreeToggle<CR>
+noremap <Leader>b :NERDTreeToggle<CR>
 
 " Use <leader>n for opening NerdTree
 noremap <Leader>n :NERDTreeFind<CR>
@@ -564,12 +530,6 @@ let g:test#strategy = 'neovim'
 
 " Remap ESC to not close the test window.
 tnoremap <Esc> <C-\><C-n>
-
-" Thanks to remap above it's need to remap ESC to close FZF.
-au TermOpen * tnoremap <Esc> <c-\><c-n>
-au FileType fzf tunmap <Esc>
-let $FZF_DEFAULT_COMMAND = 'rg --files'
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all,ctrl-d:deselect-all'
 
 let g:test#preserve_screen = 1
 let g:test#filename_modifier = ":."
@@ -652,3 +612,5 @@ set foldcolumn=1
 
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+set conceallevel=0
