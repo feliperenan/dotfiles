@@ -175,7 +175,7 @@ set mouse=a
 nmap <leader>so :source $MYVIMRC<cr>
 
 " Shortcut to open vim rc
-nmap <leader>vr :sp ~/dotfiles/vim/init.vim<cr>
+nmap <leader>vr :e ~/dotfiles/vim/init.vim<cr>
 
 " Preview substitute command on neovim
 if has("nvim")
@@ -213,6 +213,9 @@ nmap <leader>bh :Startify<cr>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> <leader>co  :<C-u>CocList outline<CR>
+nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>p <cmd>Telescope find_files<cr>
@@ -506,7 +509,7 @@ nmap <leader>j :split<CR><C-w>j
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use <leader>f for toggling NerdTree
-noremap <Leader>b :NERDTreeToggle<CR>
+noremap <silent> <Leader>b :NERDTreeToggle<CR>
 
 " Use <leader>n for opening NerdTree
 noremap <Leader>n :NERDTreeFind<CR>
