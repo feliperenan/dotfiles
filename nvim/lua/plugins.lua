@@ -46,7 +46,7 @@ return packer.startup(function(use)
   use 'danro/rename.vim'          -- Easialy rename files using :Rename filename newfilename
   use 'janko-m/vim-test'          -- Run tests from vim.
   use 'tpope/vim-surround'        -- Easily replace commas, quotes, parentheses or edit words surround by it.
-  use 'scrooloose/nerdtree'       -- File tree
+  use 'kyazdani42/nvim-tree.lua'  -- File tree
   use 'vim-scripts/tComment'      -- Add shortcuts for commenting block of codes.
   use 'bogado/file-line'          -- Plugin to enable vim to open the file in the spefic line ex. app/models/user.rb:1337
   use 'benmills/vimux'            -- Creates or run commands from VIM on existing TMUX panes.

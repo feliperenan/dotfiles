@@ -20,9 +20,6 @@ map('n', '<leader>r', ':%s///g<Left><Left>', default_opts)
 -- Fast saving with <leader> and w
 map('n', '<leader>w', ':w<CR>', default_opts)
 
--- Remap Y to copy line starting from cursos. As D.
-map('n', 'Y', 'y$', default_opts)
-
 -- Search word under cursor without moving the cursor. Useful for using cgn and then change next words.
 map('n', '*', '*``', default_opts)
 map('n', '#', '#``', default_opts)
@@ -72,6 +69,5 @@ map('n', '<leader>b', "<cmd>lua require('telescope.builtin').buffers()<CR>", { n
 map('n', '<leader>t', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", { noremap = true })
 map('n', '<leader>co', "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", { noremap = true })
 
--- NERD tree
-map('n', '<leader>n', ':NERDTreeToggle<CR>', default_opts)
-map('n', '<leader>m', ':NERDTreeFind<CR>', default_opts)
+-- NVIM tree
+map('n', '<leader>e', ':NvimTreeFindFileToggle<CR>', default_opts)
