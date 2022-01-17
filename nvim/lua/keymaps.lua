@@ -2,9 +2,6 @@
 local map = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 
--- Shortcut to open init.lua
-map('n', '<leader>vr', ':e ~/dotfiles/nvim/init.lua<cr>', default_opts)
-
 -- Create a vertical split
 map('n', '<leader>l', ':vsplit<CR><C-w>l', default_opts)
 
@@ -48,8 +45,8 @@ map('n', '<leader>yl', ":let @+=expand('%:p') . ':' . line('.')<CR>", default_op
 -- Quickly open a buffer for scribble
 map('n', '<leader>x', ':e ~/buffer<CR>', default_opts)
 
--- Close all the buffers
-map('n', '<leader>bq', ':bufdo bd<cr>', default_opts)
+-- Close all the buffers but keep the current one.
+map('n', '<leader>bq', ':%bd | e#| bd#', default_opts)
 
 -- Vim-test key bindings
 map('n', '<leader>tt', ':TestFile<CR>', default_opts)
@@ -63,11 +60,16 @@ map('n', '<leader>-', ':wincmd _<cr>:wincmd |<cr>', default_opts)
 map('n', '<leader>=', ':wincmd =<cr>', default_opts)
 
 -- Telescope
-map('n', '<leader>p', "<cmd>lua require('telescope.builtin').find_files()<CR>", { noremap = true })
-map('n', '<leader>f', "<cmd>lua require('telescope.builtin').live_grep()<CR>", { noremap = true })
-map('n', '<leader>b', "<cmd>lua require('telescope.builtin').buffers()<CR>", { noremap = true })
-map('n', '<leader>t', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", { noremap = true })
-map('n', '<leader>co', "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", { noremap = true })
+map('n', '<leader>p', "<cmd>lua require('telescope.builtin').find_files()<CR>", default_opts)
+map('n', '<leader>f', "<cmd>lua require('telescope.builtin').live_grep()<CR>", default_opts)
+map('n', 'K', "<cmd>lua require('telescope.builtin').grep_string()<CR>", default_opts)
+map('n', '<leader>bo', "<cmd>lua require('telescope.builtin').buffers()<CR>", default_opts)
+map('n', '<leader>t', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", default_opts)
+map('n', '<leader>co', "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", default_opts)
+map('n', '<leader>gc', "<cmd>lua require('telescope.builtin').git_branches()<CR>", default_opts)
+map('n', '<leader>gc', "<cmd>lua require('settings/telescope').git_branches()<CR>", default_opts)
+map('n', '<leader>vr', "<cmd>lua require('settings/telescope').load_vimrc_files()<CR>", default_opts)
+
 
 -- NVIM tree
 map('n', '<leader>e', ':NvimTreeFindFileToggle<CR>', default_opts)
