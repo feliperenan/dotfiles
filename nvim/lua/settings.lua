@@ -54,7 +54,7 @@ opt.tabstop = 2           -- 1 tab == 4 spaces
 opt.smartindent = true    -- autoindent new lines
 
 -- don't auto commenting new lines
-cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
+-- cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
 
 -- remove line lenght marker for selected filetypes
 cmd [[autocmd FileType text,markdown,html,xhtml,javascript,lua setlocal cc=0]]
@@ -86,6 +86,7 @@ exec([[
 -- VIM Test
 cmd('let g:test#preserve_screen = 1')
 cmd("let g:test#filename_modifier = ':.'")
+cmd("let g:test#strategy = 'neovim'")
 
 -- NERD tree
 cmd [[ let NERDTreeMinimalUI = 1 ]]
@@ -122,7 +123,7 @@ require('lualine').setup {
     lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
     lualine_x = {},
-    lualine_y = {'progress'},
+    lualine_y = {'progress', 'location'},
     lualine_z = {}
   },
   inactive_sections = {
@@ -147,6 +148,16 @@ configs.setup {
   },
   indent = {
     enable = false, -- default is disabled anyways
-  }
+  },
+  additional_vim_regex_highlighting = false
 }
 
+-- Nvim comments
+require('nvim_comment').setup({
+  marker_padding = true,    -- Linters prefer comment and line to have a space in between markers
+  comment_empty = true,     -- should comment out empty or whitespace only lines
+  create_mappings = true,   -- Should key mappings be created
+  line_mapping = "gcc",     -- Normal mode mapping left hand side
+  operator_mapping = "gc",  -- Visual/Operator mapping left hand side
+  hook = nil                -- Hook function to call before commenting takes place
+})

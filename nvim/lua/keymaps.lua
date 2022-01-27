@@ -5,6 +5,10 @@ local default_opts = { noremap = true, silent = true }
 -- Create a vertical split
 map('n', '<leader>l', ':vsplit<CR><C-w>l', default_opts)
 
+-- Remap ESC to not close the test window.
+-- tnoremap <Esc> <C-\><C-n>
+map('n', '<Esc>', '<C-><C-n>', default_opts)
+
 -- Create a horizontal split
 map('n', '<leader>j', ':split<CR><C-w>j', default_opts)
 

@@ -47,13 +47,12 @@ return packer.startup(function(use)
   use 'janko-m/vim-test'          -- Run tests from vim.
   use 'tpope/vim-surround'        -- Easily replace commas, quotes, parentheses or edit words surround by it.
   use 'kyazdani42/nvim-tree.lua'  -- File tree
-  use 'vim-scripts/tComment'      -- Add shortcuts for commenting block of codes.
+  use 'terrortylor/nvim-comment'   -- Add shortcuts for commenting block of codes.
   use 'bogado/file-line'          -- Plugin to enable vim to open the file in the spefic line ex. app/models/user.rb:1337
   use 'benmills/vimux'            -- Creates or run commands from VIM on existing TMUX panes.
   use 'hauleth/sad.vim'           -- Quick search and replace for Vim
   use 'nvim-lualine/lualine.nvim' -- Awesome vim airline with several options and themes.
   use 'tpope/vim-repeat'          -- Repeat any command with dot .
-
   use 'nvim-treesitter/nvim-treesitter'
   use 'kyazdani42/nvim-web-devicons'
 
