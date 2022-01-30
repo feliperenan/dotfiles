@@ -10,9 +10,9 @@ git clone https://github.com/frenangomes/dotfiles
 
 * Install neovim: `brew install nvim`
 * Install tmux: `brew install tmux`
-* Install the package manager:
-
-https://github.com/wbthomason/packer.nvim#quickstart
+* Install rg: `brew install rg`
+* Install powerfonts: `https://www.nerdfonts.com/`
+* Install the package manager: `https://github.com/wbthomason/packer.nvim#quickstart`
 
 ```bash
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
@@ -34,7 +34,7 @@ bash $HOME/dotfiles/setup
 and
 
 ```
-:LspInsall elixirls
+:LspInstall elixirls
 ```
 
 * Install plugins with [tmux-plugins](https://github.com/tmux-plugins/tpm)
