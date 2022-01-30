@@ -80,6 +80,7 @@ return packer.startup(function(use)
   use 'andyl/vim-projectionist-elixir'
 
   -- Colorschemas
+  use 'rose-pine/neovim'
   use 'EdenEast/nightfox.nvim'
   -- use 'folke/tokyonight.nvim'
   -- use 'feliperenan/nord-vim'

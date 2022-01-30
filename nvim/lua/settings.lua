@@ -40,10 +40,6 @@ opt.fileencoding = "utf-8"
 opt.termguicolors = true
 opt.grepprg = "rg --vimgrep --smart-case --follow"
 
--- Colorschema
-opt.background = 'dark'
-cmd [[ colorscheme nightfox]]
-
 -- Startify
 cmd [[ let g:startify_relative_path = 1 ]]
 cmd [[ let g:startify_change_to_vcs_root = 1 ]]
