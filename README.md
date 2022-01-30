@@ -1,79 +1,46 @@
 ## Setup
 
 Clone dotfiles
+
 ```bash
 git clone https://github.com/frenangomes/dotfiles
 ```
 
-### NEOVIM
-Install [vim-plug](https://github.com/junegunn/vim-plug)
+### NEOVIM and TMUX
 
-Make sure that you have `~/.config/nvim/init.vim` and add it there:
-```
-source $HOME/dotfiles/vim/init.vim
-```
-
-```VIM
-:PlugInstall
-```
-
-### VIM
-Install [vim-plug](https://github.com/junegunn/vim-plug)
-
-Make sure that you have `~/.vimrc` and add it there:
-```
-source $HOME/dotfiles/vim/init.vim
-```
-
-```VIM
-:PlugInstall
-```
-
-### CTAGS with GIT
-
-Configure GIT
-```bash
-git config --global init.templatedir '~/.git_template'
-git config --global alias.ctags '!.git/hooks/ctags'
-```
-
-Copy `.git_template` to your home directory
-```bash
-cp -r ~/dotfiles/.git_template ~
-```
-
-You may need to re-initialize the git inside your project:
-```bash
-git init
-```
-
-Let ctags executable:
-```bash
-chmod +x .git/hooks/ctags
-```
-
-Inside your project:
-```bash
-git ctags
-```
-
-Now ctags will be update automatically after each git commands.
-
-More info [here](http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html)
-
-So far this commit, CTAGS doesn't support Elixir by default, consider use this [elixir-ctags](https://github.com/mmorearty/elixir-ctags).
-
-### TMUX
-
-Copy `~/dotfiles/tmux/.tmux.conf` to your home
+* Install neovim: `brew install nvim`
+* Install tmux: `brew install tmux`
+* Install rg: `brew install rg`
+* Install powerfonts: `https://www.nerdfonts.com/`
+* Install the package manager: `https://github.com/wbthomason/packer.nvim#quickstart`
 
 ```bash
-cp ~/dotfiles/tmux/.tmux.conf ~
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 ```
 
-Install plugins with [tmux-plugins](https://github.com/tmux-plugins/tpm)
+* Execute the setup script to setup both neovim and tmux:
+
+```bash
+bash $HOME/dotfiles/setup
+```
+
+* Open neovim and install the plugins
+
+```
+:PackerInstall
+```
+
+and
+
+```
+:LspInstall elixirls
+```
+
+* Install plugins with [tmux-plugins](https://github.com/tmux-plugins/tpm)
 
 #### Fixing neovim background color on tmux
+
 * .zshrc (or any profile you're using on your terminal)
 ```
 if [[ $TERM == xterm ]]; then TERM=xterm-256color; fi
