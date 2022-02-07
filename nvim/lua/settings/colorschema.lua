@@ -5,7 +5,7 @@ require('lualine').setup({
 -- Set theme variant
 -- Matches terminal theme if unset
 -- @usage 'main' | 'moon' | 'dawn'
-vim.g.rose_pine_variant = ''
+vim.g.rose_pine_variant = 'main'
 
 vim.g.rose_pine_bold_vertical_split_line = false
 vim.g.rose_pine_inactive_background = false
