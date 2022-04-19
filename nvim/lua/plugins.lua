@@ -58,7 +58,6 @@ return packer.startup(function(use)
 
   -- Git plugins
   use 'tpope/vim-fugitive'
-  use 'ThePrimeagen/git-worktree.nvim'
 
   -- Language Support (LSP)
   use 'neovim/nvim-lspconfig'
@@ -76,8 +75,7 @@ return packer.startup(function(use)
 
   -- Quickly navigation among Elixir files
   use 'tpope/vim-projectionist'
-  use 'c-brenn/fuzzy-projectionist.vim'
-  use 'andyl/vim-projectionist-elixir'
+  use 'dkuku/vim-projectionist-elixir'
 
   -- Colorschemas
   use 'rose-pine/neovim'

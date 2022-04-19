@@ -90,7 +90,7 @@ cmd [[ let g:NERDTreeIgnore=['\~$', 'deps', '_build'] ]]
 cmd [[ let NERDTreeShowHidden=1 ]]
 
 -- Telescope
-local telescope = require("telescope")
+local telescope = require('telescope')
 
 telescope.setup{
   defaults = {
@@ -137,13 +137,13 @@ require('lualine').setup {
 local configs = require 'nvim-treesitter.configs'
 
 configs.setup {
-  ensure_installed = "maintained", -- Only use parsers that are maintained
-  highlight = { -- enable highlighting
+  ensure_installed = { "lua", "javascript", "elixir", "go", "json" },
+  sync_install = true,
+  highlight = {
     enable = true,
   },
   indent = {
-    enable = false, -- default is disabled anyways
+    enable = true,
   },
-  additional_vim_regex_highlighting = false
+  additional_vim_regex_highlighting = false,
 }
-
