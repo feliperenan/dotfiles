@@ -39,20 +39,20 @@ packer.init {
 }
 
 return packer.startup(function(use)
-  use "wbthomason/packer.nvim"    -- Have packer manage itself
-  use "nvim-lua/popup.nvim"       -- An implementation of the Popup API from vim in Neovim
-  use 'mhinz/vim-startify'        -- This plugin provides a start screen for Vim and Neovim.
-  use 'Yggdroot/indentLine'       -- Display Indentation line
-  use 'danro/rename.vim'          -- Easialy rename files using :Rename filename newfilename
-  use 'janko-m/vim-test'          -- Run tests from vim.
-  use 'tpope/vim-surround'        -- Easily replace commas, quotes, parentheses or edit words surround by it.
-  use 'kyazdani42/nvim-tree.lua'  -- File tree
-  use 'tpope/vim-commentary'      -- Add shortcuts for commenting block of codes.
-  use 'bogado/file-line'          -- Plugin to enable vim to open the file in the spefic line ex. app/models/user.rb:1337
-  use 'benmills/vimux'            -- Creates or run commands from VIM on existing TMUX panes.
-  use 'hauleth/sad.vim'           -- Quick search and replace for Vim
+  use "wbthomason/packer.nvim" -- Have packer manage itself
+  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
+  use 'mhinz/vim-startify' -- This plugin provides a start screen for Vim and Neovim.
+  use 'Yggdroot/indentLine' -- Display Indentation line
+  use 'danro/rename.vim' -- Easialy rename files using :Rename filename newfilename
+  use 'janko-m/vim-test' -- Run tests from vim.
+  use 'tpope/vim-surround' -- Easily replace commas, quotes, parentheses or edit words surround by it.
+  use 'kyazdani42/nvim-tree.lua' -- File tree
+  use 'tpope/vim-commentary' -- Add shortcuts for commenting block of codes.
+  use 'bogado/file-line' -- Plugin to enable vim to open the file in the spefic line ex. app/models/user.rb:1337
+  use 'benmills/vimux' -- Creates or run commands from VIM on existing TMUX panes.
+  use 'hauleth/sad.vim' -- Quick search and replace for Vim
   use 'nvim-lualine/lualine.nvim' -- Awesome vim airline with several options and themes.
-  use 'tpope/vim-repeat'          -- Repeat any command with dot .
+  use 'tpope/vim-repeat' -- Repeat any command with dot .
   use 'nvim-treesitter/nvim-treesitter'
   use 'kyazdani42/nvim-web-devicons'
 
@@ -68,6 +68,8 @@ return packer.startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
 
   -- Fuzzy finder
   use 'nvim-lua/plenary.nvim'
@@ -94,4 +96,3 @@ return packer.startup(function(use)
     require("packer").sync()
   end
 end)
-

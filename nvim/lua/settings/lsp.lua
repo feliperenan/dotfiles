@@ -10,13 +10,18 @@ local cmp = require("cmp")
 -- For a better auto complete take a look at:
 -- https://github.com/LunarVim/Neovim-from-scratch/blob/master/lua/user/cmp.lua
 cmp.setup {
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    end,
+  },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    --- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }),
   formatting = {
     fields = { "abbr", "menu" },
@@ -33,6 +38,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'path' },
+    { name = "vsnip" },
   }, {
     { name = 'buffer' },
   }),
@@ -111,6 +117,7 @@ local on_attach = function(_, bufnr)
   map(bufnr, "n", "gk", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
   map(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+  map(bufnr, 'n', '<leader>cd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   map(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
   map(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
   map(bufnr, "n", "gq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
@@ -124,6 +131,7 @@ if not status_ok then
   return
 end
 
+local path_to_elixirls = vim.fn.expand("~/elixir-ls/release/language_server.sh")
 
 lsp_installer.on_server_ready(function(server)
   local opts = {
@@ -148,6 +156,7 @@ lsp_installer.on_server_ready(function(server)
     vim.notify "Setting up ElixirLS options"
 
     local elixirls_opts = {
+      cmd = { path_to_elixirls },
       settings = {
         elixirLS = {
           dialyzerEnabled = false,
