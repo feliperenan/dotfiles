@@ -38,10 +38,20 @@ map('n', '<leader>x', ':e ~/buffer<CR>', default_opts)
 map('n', '<leader>-', ':wincmd _<cr>:wincmd |<cr>', default_opts)
 map('n', '<leader>=', ':wincmd =<cr>', default_opts)
 
--- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
+-- add your own keymapping
+lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.visual_mode["K"] = ""
+lvim.keys.visual_mode["J"] = ""
+
+lvim.builtin.which_key.mappings["t"] = {
+  name = "Test",
+  f = { "<cmd>TestFile<cr>", "File" },
+  n = { "<cmd>TestNearest<cr>", "Nearest" },
+  s = { "<cmd>TestSuite<cr>", "Suite" },
+}
+
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.builtin.alpha.active = true
@@ -51,6 +61,7 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.terminal.direction = "horizontal"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+-- lvim.builtin.telescope.defaults.preview = false
 
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
@@ -69,24 +80,13 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
+  -- Colorschemes
   { 'rose-pine/neovim' },
   { 'feliperenan/nord-vim' },
   { 'sainnhe/everforest' },
 
-  {
-    "vim-test/vim-test",
-    cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
-    keys = { "<localleader>tf", "<localleader>tn", "<localleader>ts" },
-    config = function()
-      vim.cmd [[
-          function! ToggleTermStrategy(cmd) abort
-            call luaeval("require('toggleterm').exec(_A[1])", [a:cmd])
-          endfunction
-          let g:test#custom_strategies = {'toggleterm': function('ToggleTermStrategy')}
-        ]]
-      vim.g["test#strategy"] = "toggleterm"
-    end,
-  },
+  -- VIM test
+  { "vim-test/vim-test" },
 
   -- Add :Rename command so I can rename files as :Rename old new
   { 'danro/rename.vim' },
@@ -95,12 +95,14 @@ lvim.plugins = {
   -- of the current buffer.
   { 'tpope/vim-projectionist' },
   { 'dkuku/vim-projectionist-elixir' },
-  {
-    "ggandor/lightspeed.nvim", event = "BufRead",
-  },
-  {
-    "tpope/vim-surround", keys = { "c", "d", "y" }
-  },
+
+  -- Improve VIM motion.
+  -- { "ggandor/lightspeed.nvim", event = "BufRead" },
+
+  -- VIM surround
+  { "tpope/vim-surround" },
+
+  -- Display indentation.
   { 'Yggdroot/indentLine' },
 }
 
@@ -112,6 +114,11 @@ vim.cmd [[au BufWritePre * :%s/\s\+$//e]]
 vim.cmd [[
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]]
+
+-- VIM TEST
+vim.cmd [[ let g:test#strategy = "neovim" ]]
+-- don't close the terminal by default.
+vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
 
 -- Startify
 vim.cmd [[ let g:startify_relative_path = 1 ]]
