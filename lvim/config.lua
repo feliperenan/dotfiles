@@ -4,7 +4,7 @@ a sys link to this file instead.
 
 -- backup original config if you ever needed it.
 mv ~/.config/lvim/config.lua ~/.config/lvim/config.lua.bkp
-ln -s ~/.dotfiles/lvim/config.lua ~/.config/lvim/config.lua
+ln -s ~/dotfiles/lvim/config.lua ~/.config/lvim/config.lua
 ]]
 
 -- general
@@ -19,11 +19,7 @@ local map = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 
 -- Find & Replace with <leader> r from previous search.
-map('n', '<leader>r', ':%s///g<Left><Left>', default_opts)
-
--- Search word under cursor without moving the cursor. Useful for using cgn and then change next words.
-map('n', '*', '*``', default_opts)
-map('n', '#', '#``', default_opts)
+map('n', '<leader>r', ':%s///g<Left><Left>', { noremap = true, silent = false })
 
 -- Copy the current path to clipboard
 map('n', '<leader>y', ":let @+=expand('%:p')<CR>", default_opts)
@@ -45,12 +41,17 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.visual_mode["K"] = ""
 lvim.keys.visual_mode["J"] = ""
 
-lvim.builtin.which_key.mappings["t"] = {
+-- customize mappings
+local which_key = lvim.builtin.which_key.mappings
+
+which_key["t"] = {
   name = "Test",
   f = { "<cmd>TestFile<cr>", "File" },
   n = { "<cmd>TestNearest<cr>", "Nearest" },
   s = { "<cmd>TestSuite<cr>", "Suite" },
 }
+
+which_key["f"] = { "<cmd>Telescope find_files<cr>", "Find File" }
 
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
@@ -58,10 +59,15 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "startify"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.terminal.direction = "horizontal"
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
--- lvim.builtin.telescope.defaults.preview = false
+lvim.builtin.nvimtree.setup.view.side = "right"
+lvim.builtin.nvimtree.setup.update_cwd = true
+lvim.builtin.nvimtree.setup.update_focused_file.update_cwd = true
+lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
+lvim.builtin.nvimtree.setup.actions.change_dir.restrict_above_cwd = true
+-- keep file tree in the opened directory.
+lvim.builtin.project.manual_mode = true
+
 
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
@@ -104,6 +110,10 @@ lvim.plugins = {
 
   -- Display indentation.
   { 'Yggdroot/indentLine' },
+
+  { 'preservim/vimux' },
+
+  { 'hauleth/sad.vim' }
 }
 
 vim.opt.relativenumber = true
@@ -116,7 +126,8 @@ vim.cmd [[
 ]]
 
 -- VIM TEST
-vim.cmd [[ let g:test#strategy = "neovim" ]]
+vim.cmd [[ let g:test#strategy = "vimux" ]]
+
 -- don't close the terminal by default.
 vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
 

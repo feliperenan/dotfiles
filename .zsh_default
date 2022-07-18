@@ -19,6 +19,8 @@ alias vim='nvim'
 # alias cat to ccat (brew install ccat)
 alias cat='ccat'
 
+alias mtw='fswatch lib test | mix test --listen-on-stdin'
+
 # Save historic from IEX session
 export ERL_AFLAGS="-kernel shell_history enabled"
 
