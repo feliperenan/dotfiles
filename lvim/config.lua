@@ -15,26 +15,6 @@ vim.o.background = "dark"
 
 
 -- CUSTOM MAPPINGS
-local map = vim.api.nvim_set_keymap
-local default_opts = { noremap = true, silent = true }
-
--- Find & Replace with <leader> r from previous search.
-map('n', '<leader>r', ':%s///g<Left><Left>', { noremap = true, silent = false })
-
--- Copy the current path to clipboard
-map('n', '<leader>y', ":let @+=expand('%:p')<CR>", default_opts)
-
--- Copy the current path to clipboard with line number.
-map('n', '<leader>yl', ":let @+=expand('%:p') . ':' . line('.')<CR>", default_opts)
-
--- Quickly open a buffer for scribble
-map('n', '<leader>x', ':e ~/buffer<CR>', default_opts)
-
--- Zoom a vim pane, <C-w>= to re-balance
-map('n', '<leader>-', ':wincmd _<cr>:wincmd |<cr>', default_opts)
-map('n', '<leader>=', ':wincmd =<cr>', default_opts)
-
-
 -- keymappings [view all the defaults by pressing <leader>Lk]
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
@@ -52,6 +32,10 @@ which_key["t"] = {
 }
 
 which_key["f"] = { "<cmd>Telescope find_files<cr>", "Find File" }
+which_key["y"] = { "<cmd>let @+=expand('%:~:.')<CR>", "Current path to clipboard" }
+which_key["x"] = { "<cmd>e ~/buffer<CR>", "My notes" }
+which_key["-"] = { "<cmd>wincmd _<CR>:wincmd |<CR>", "My notes" }
+which_key["="] = { ":wincmd =<CR>", "My notes" }
 
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
@@ -60,7 +44,7 @@ lvim.builtin.alpha.mode = "startify"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.direction = "horizontal"
-lvim.builtin.nvimtree.setup.view.side = "right"
+lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.update_cwd = true
 lvim.builtin.nvimtree.setup.update_focused_file.update_cwd = true
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
@@ -93,6 +77,7 @@ lvim.plugins = {
 
   -- VIM test
   { "vim-test/vim-test" },
+  { 'preservim/vimux' },
 
   -- Add :Rename command so I can rename files as :Rename old new
   { 'danro/rename.vim' },
@@ -111,9 +96,8 @@ lvim.plugins = {
   -- Display indentation.
   { 'Yggdroot/indentLine' },
 
-  { 'preservim/vimux' },
-
-  { 'hauleth/sad.vim' }
+  -- Improve Search & Replace under cursor.
+  { 'hauleth/sad.vim' },
 }
 
 vim.opt.relativenumber = true
@@ -135,3 +119,6 @@ vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
 vim.cmd [[ let g:startify_relative_path = 1 ]]
 vim.cmd [[ let g:startify_change_to_vcs_root = 1 ]]
 vim.cmd [[ set termguicolors ]]
+
+-- The default cmd line section is too big.
+vim.cmd [[ set cmdheight=1 ]]
