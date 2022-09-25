@@ -20,6 +20,8 @@ vim.o.background = "dark"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.visual_mode["K"] = ""
 lvim.keys.visual_mode["J"] = ""
+lvim.keys.normal_mode["<C-{"] = ":BufferLineCyclePrev"
+lvim.keys.normal_mode["<C-}"] = ":BufferLineCycleNext"
 
 -- customize mappings
 local which_key = lvim.builtin.which_key.mappings
@@ -34,8 +36,10 @@ which_key["t"] = {
 which_key["f"] = { "<cmd>Telescope find_files<cr>", "Find File" }
 which_key["y"] = { "<cmd>let @+=expand('%:~:.')<CR>", "Current path to clipboard" }
 which_key["x"] = { "<cmd>e ~/buffer<CR>", "My notes" }
-which_key["-"] = { "<cmd>wincmd _<CR>:wincmd |<CR>", "My notes" }
-which_key["="] = { ":wincmd =<CR>", "My notes" }
+which_key["-"] = { "<cmd>wincmd _<CR>:wincmd |<CR>", "Win focus" }
+which_key["="] = { ":wincmd =<CR>", "Win back to normal" }
+which_key["b"]["b"] = { "<cmd>BufferLineCyclePrev<CR>", "Previous" }
+which_key["b"]["n"] = { "<cmd>BufferLineCycleNext<CR>", "Next" }
 
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
@@ -49,8 +53,8 @@ lvim.builtin.nvimtree.setup.update_cwd = true
 lvim.builtin.nvimtree.setup.update_focused_file.update_cwd = true
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 lvim.builtin.nvimtree.setup.actions.change_dir.restrict_above_cwd = true
--- keep file tree in the opened directory.
-lvim.builtin.project.manual_mode = true
+lvim.builtin.project.manual_mode = true -- keep file tree in the opened directory.
+lvim.builtin.bufferline.mode = "buffers"
 
 
 lvim.builtin.treesitter.ensure_installed = {
@@ -98,6 +102,9 @@ lvim.plugins = {
 
   -- Improve Search & Replace under cursor.
   { 'hauleth/sad.vim' },
+
+  -- Multi line cursor.
+  { 'mg979/vim-visual-multi' }
 }
 
 vim.opt.relativenumber = true
