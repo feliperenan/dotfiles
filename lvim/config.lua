@@ -7,11 +7,34 @@ mv ~/.config/lvim/config.lua ~/.config/lvim/config.lua.bkp
 ln -s ~/dotfiles/lvim/config.lua ~/.config/lvim/config.lua
 ]]
 
--- general
+-- General
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "everforest"
+
 vim.o.background = "dark"
+vim.o.relativenumber = true
+vim.o.ls = 0
+vim.o.ch = 0
+
+-- Remove whitespace on save
+vim.cmd [[au BufWritePre * :%s/\s\+$//e]]
+
+-- Return to last edit position when opening files (You want this!)
+vim.cmd [[
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+]]
+
+-- VIM TEST
+vim.cmd [[ let g:test#strategy = "neovim" ]]
+
+-- don't close the terminal by default.
+vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
+
+-- Startify
+vim.cmd [[ let g:startify_relative_path = 1 ]]
+vim.cmd [[ let g:startify_change_to_vcs_root = 1 ]]
+vim.cmd [[ set termguicolors ]]
 
 
 -- CUSTOM MAPPINGS
@@ -20,10 +43,8 @@ vim.o.background = "dark"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.visual_mode["K"] = ""
 lvim.keys.visual_mode["J"] = ""
-lvim.keys.normal_mode["<C-{"] = ":BufferLineCyclePrev"
-lvim.keys.normal_mode["<C-}"] = ":BufferLineCycleNext"
 
--- customize mappings
+-- customize mappings for which key
 local which_key = lvim.builtin.which_key.mappings
 
 which_key["t"] = {
@@ -33,13 +54,10 @@ which_key["t"] = {
   s = { "<cmd>TestSuite<cr>", "Suite" },
 }
 
-which_key["f"] = { "<cmd>Telescope find_files<cr>", "Find File" }
 which_key["y"] = { "<cmd>let @+=expand('%:~:.')<CR>", "Current path to clipboard" }
 which_key["x"] = { "<cmd>e ~/buffer<CR>", "My notes" }
 which_key["-"] = { "<cmd>wincmd _<CR>:wincmd |<CR>", "Win focus" }
 which_key["="] = { ":wincmd =<CR>", "Win back to normal" }
-which_key["b"]["b"] = { "<cmd>BufferLineCyclePrev<CR>", "Previous" }
-which_key["b"]["n"] = { "<cmd>BufferLineCycleNext<CR>", "Next" }
 
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
@@ -91,41 +109,12 @@ lvim.plugins = {
   { 'tpope/vim-projectionist' },
   { 'dkuku/vim-projectionist-elixir' },
 
-  -- Improve VIM motion.
-  -- { "ggandor/lightspeed.nvim", event = "BufRead" },
-
   -- VIM surround
   { "tpope/vim-surround" },
 
   -- Display indentation.
   { 'Yggdroot/indentLine' },
 
-  -- Improve Search & Replace under cursor.
-  { 'hauleth/sad.vim' },
-
   -- Multi line cursor.
   { 'mg979/vim-visual-multi' }
 }
-
-vim.opt.relativenumber = true
--- Remove whitespace on save
-vim.cmd [[au BufWritePre * :%s/\s\+$//e]]
-
--- Return to last edit position when opening files (You want this!)
-vim.cmd [[
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-]]
-
--- VIM TEST
-vim.cmd [[ let g:test#strategy = "vimux" ]]
-
--- don't close the terminal by default.
-vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
-
--- Startify
-vim.cmd [[ let g:startify_relative_path = 1 ]]
-vim.cmd [[ let g:startify_change_to_vcs_root = 1 ]]
-vim.cmd [[ set termguicolors ]]
-
--- The default cmd line section is too big.
-vim.cmd [[ set cmdheight=1 ]]
