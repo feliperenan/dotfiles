@@ -10,7 +10,7 @@ ln -s ~/dotfiles/lvim/config.lua ~/.config/lvim/config.lua
 -- General
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "everforest"
+lvim.colorscheme = "tokyonight-storm"
 
 vim.o.background = "dark"
 vim.o.relativenumber = true
@@ -29,7 +29,7 @@ vim.cmd [[
 vim.cmd [[ let g:test#strategy = "neovim" ]]
 
 -- don't close the terminal by default.
-vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
+-- vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
 
 -- Startify
 vim.cmd [[ let g:startify_relative_path = 1 ]]
@@ -63,7 +63,6 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "startify"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.direction = "horizontal"
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -73,6 +72,7 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 lvim.builtin.nvimtree.setup.actions.change_dir.restrict_above_cwd = true
 lvim.builtin.project.manual_mode = true -- keep file tree in the opened directory.
 lvim.builtin.bufferline.mode = "buffers"
+lvim.builtin.lualine.active = false
 
 
 lvim.builtin.treesitter.ensure_installed = {
@@ -89,6 +89,7 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+lvim.lsp.diagnostics.virtual_text = false
 
 -- Additional Plugins
 lvim.plugins = {
@@ -96,6 +97,7 @@ lvim.plugins = {
   { 'rose-pine/neovim' },
   { 'feliperenan/nord-vim' },
   { 'sainnhe/everforest' },
+  { 'folke/tokyonight.nvim' },
 
   -- VIM test
   { "vim-test/vim-test" },
@@ -118,3 +120,10 @@ lvim.plugins = {
   -- Multi line cursor.
   { 'mg979/vim-visual-multi' }
 }
+
+vim.filetype.add({
+  extension = {
+    leex = 'heex',
+    eex = 'heex'
+  }
+})
