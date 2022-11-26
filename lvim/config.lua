@@ -89,13 +89,12 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+lvim.builtin.breadcrumbs.active = false
 lvim.lsp.diagnostics.virtual_text = false
 
 -- Additional Plugins
 lvim.plugins = {
   -- Colorschemes
-  { 'rose-pine/neovim' },
-  { 'feliperenan/nord-vim' },
   { 'sainnhe/everforest' },
   { 'folke/tokyonight.nvim' },
 
