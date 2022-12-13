@@ -11,7 +11,6 @@ ln -s ~/dotfiles/lvim/config.lua ~/.config/lvim/config.lua
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "tokyonight-storm"
-
 vim.o.background = "dark"
 vim.o.relativenumber = true
 vim.o.ls = 0
@@ -26,7 +25,7 @@ vim.cmd [[
 ]]
 
 -- VIM TEST
-vim.cmd [[ let g:test#strategy = "neovim" ]]
+vim.cmd [[ let g:test#strategy = "vimux" ]]
 
 -- don't close the terminal by default.
 -- vim.cmd [[ let g:test#neovim#start_normal = 1 ]]
@@ -43,6 +42,8 @@ vim.cmd [[ set termguicolors ]]
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.visual_mode["K"] = ""
 lvim.keys.visual_mode["J"] = ""
+lvim.keys.normal_mode["L"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["H"] = ":BufferLineCyclePrev<CR>"
 
 -- customize mappings for which key
 local which_key = lvim.builtin.which_key.mappings
@@ -80,11 +81,9 @@ lvim.builtin.treesitter.ensure_installed = {
   "javascript",
   "json",
   "lua",
-  "typescript",
-  "tsx",
   "css",
-  "rust",
   "yaml",
+  "elixir"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -95,10 +94,12 @@ lvim.lsp.diagnostics.virtual_text = false
 -- Additional Plugins
 lvim.plugins = {
   -- Colorschemes
-  { 'sainnhe/everforest' },
   { 'folke/tokyonight.nvim' },
+  -- { 'sainnhe/everforest' },
 
   -- VIM test
+  -- Vimux to run commands from vim on tmux. I use it mostly for running tests
+  -- over the cursor.
   { "vim-test/vim-test" },
   { 'preservim/vimux' },
 
