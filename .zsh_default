@@ -1,10 +1,12 @@
-# Git aliases
+# Git aliases. This relies on FZF, so make you have FZF and FZF-GIT installed.
+# https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew
+# https://github.com/junegunn/fzf-git.sh
 alias g='git status -sb'
 alias gs='git status'
 alias gcm='git checkout master'
 alias grm='git rebase master'
 alias gr='git rebase'
-alias gc='git checkout'
+alias gc='_fzf_git_branches --no-multi | xargs git checkout'
 alias gl='git log'
 alias gp='git pull'
 alias gpush='git push -u origin HEAD'
