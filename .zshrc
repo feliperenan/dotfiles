@@ -5,6 +5,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Important variables
+EDITOR="nvim"
+TMUX_CONFIG="${HOME}/.tmux.conf"
+ZSH_CONFIG="${HOME}/.zshrc"
+NVIM_CONFIG="${HOME}/.config/nvim/init.lua"
+
 # Set the directory zinit plugins will be installed
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -30,6 +36,7 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZP::kubectl
 zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
+zinit snippet OMZP::tmux
 
 # Load completions
 autoload -U compinit && compinit
@@ -64,7 +71,11 @@ alias ls='ls --color'
 alias vim='nvim'
 alias cat='ccat'
 alias lvim='/Users/feliperenan/.local/bin/lvim'
+alias vimconf="$EDITOR $NVIM_CONFIG"
+alias zconf="$EDITOR $ZSH_CONFIG"
+alias tmuxconf="$EDITOR $TMUX_CONFIG"
 
+# Aliases (GIT)
 alias g='git status -sb'
 alias gs='git status'
 alias gcm='git checkout master'
