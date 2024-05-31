@@ -104,7 +104,7 @@ return {
 
     -- Shortcut for searching your Neovim configuration files
     vim.keymap.set('n', '<leader>sn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      builtin.find_files { cwd = '~/dotfiles/nvim' }
     end, { desc = '[S]earch [N]eovim files' })
 
     local action_state = require 'telescope.actions.state'
