@@ -5,5 +5,12 @@ return {
     -- See `:help ibl`
     main = 'ibl',
     opts = {},
+    config = {
+      exclude = {
+        filetypes = {
+          'dashboard',
+        },
+      },
+    },
   },
 }
