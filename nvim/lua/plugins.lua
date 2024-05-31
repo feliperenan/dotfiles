@@ -1,35 +1,8 @@
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
-
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
--- Consider moving plugins that requires a non-trivial config to its own file
--- at plugins folder and require them as such: require 'plugins.my_plygin'.
-local plugins = {
-  -- require 'kickstart.plugins.debug',
-  require 'plugins.indent_line',
-  require 'plugins.lint',
-  require 'plugins.autopairs',
-  require 'plugins.neo-tree',
-  require 'plugins.gitsigns',
-  require 'plugins.lsp',
-  require 'plugins.telescope',
-  require 'plugins.autocomplete',
-
+-- List of plugins that I didn't want to create a file in plugins/ folder. Most
+-- of the plugins added here doesn't have much config or doesn't change that
+-- much. Having the plugin on its own file make it easier to change once it can
+-- be located via `<leader>sn`.
+return {
   {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
@@ -180,11 +153,7 @@ local plugins = {
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  { -- List colorschemes via `:Telescope colorscheme`. or :colorscheme my-color
     'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
@@ -195,6 +164,16 @@ local plugins = {
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+    end,
+    config = function()
+      require('catppuccin').setup {
+        no_italic = true,
+        transparent_background = true,
+        integrations = {
+          mason = true,
+          neotree = true,
+        },
+      }
     end,
   },
 
@@ -303,27 +282,3 @@ local plugins = {
     end,
   },
 }
-
-local lazy_options = {
-  ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
-  },
-}
-
-require('lazy').setup(plugins, lazy_options)
