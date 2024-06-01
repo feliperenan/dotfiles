@@ -1,0 +1,27 @@
+# Download it from https://github.com/catppuccin/alacritty
+import = [
+  "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+env.TERM = "xterm-256color"
+
+window.padding.x     = 12
+window.padding.y     = 12
+window.decorations   = "Buttonless"
+window.opacity       = 0.97
+window.blur          = false
+window.option_as_alt = "Both"
+# window.startup_mode  = "Maximized"
+
+font.normal.family = "ZedMono Nerd Font"
+font.normal.style  = "Light"
+font.size          = 18
+
+keyboard.bindings = [
+  { key = "ArrowRight", mods = "Alt",           chars  = "\u001BF" },
+  { key = "ArrowLeft",  mods = "Alt",           chars  = "\u001BB" },
+  { key = "Enter",      mods = "Command",       action = "ToggleFullscreen" },
+  { key = "E",          mods = "Command",       action = "ToggleViMode" },
+  { key = "H",          mods = "Command|Shift", action = "HideOtherApplications" },
+]
+
