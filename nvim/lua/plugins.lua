@@ -3,6 +3,9 @@
 -- much. Having the plugin on its own file make it easier to change once it can
 -- be located via `<leader>sn`.
 return {
+  -- Trying copilot
+  { 'github/copilot.vim' },
+
   -- Dashboard
   {
     'nvimdev/dashboard-nvim',
@@ -50,9 +53,11 @@ return {
     'vim-test/vim-test',
     init = function()
       vim.cmd [[ let g:test#strategy = "toggleterm" ]]
+      vim.cmd [[ let g:test#runner_commands = ['ExUnit'] ]]
     end,
     dependencies = {
       { 'akinsho/toggleterm.nvim', version = '*', config = true },
+      { '/tpope/vim-dispatch' },
     },
   },
 
@@ -96,6 +101,7 @@ return {
           f = { '<cmd>TestFile<cr>', 'File' },
           n = { '<cmd>TestNearest<cr>', 'Nearest' },
           s = { '<cmd>TestSuite<cr>', 'Suite' },
+          x = { '<cmd>ExUnit --failed -strategy=dispatch<cr>', 'ExUnit failed tests' },
         },
       }
 
@@ -151,6 +157,7 @@ return {
   { -- List colorschemes via `:Telescope colorscheme`. or :colorscheme my-color
     'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    lazy = true,
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load

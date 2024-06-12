@@ -14,7 +14,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Set lazy_options over here in case you need some.
-local lazy_options = {}
+local lazy_options = {
+  install = {
+    colorscheme = { 'catppuccin' },
+  },
+}
 
 -- This is going to load all plugins within lua/plugins.lua and lua/plugins/*
 require('lazy').setup('plugins', lazy_options)
