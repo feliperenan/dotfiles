@@ -7,6 +7,11 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- set tab spaces to 2
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 --  For more options, you can see `:help option-list`
@@ -142,6 +147,10 @@ vim.cmd [[
   endfun
 
   if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.ex,.exs,*.html,*.slime,*.vim,*.lime :call CleanExtraSpaces()
+    autocmd BufWritePre * :call CleanExtraSpaces()
   endif
 ]]
+
+vim.keymap.set('n', '<leader>=', '<cmd>:wincmd =<CR>', { desc = 'Re-balance vim panes' })
+
+vim.cmd [[ autocmd BufRead,BufNewFile *.eex set filetype=heex ]]

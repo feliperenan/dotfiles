@@ -1,19 +1,5 @@
 -- GIT plugins
 return {
-  -- Neogit
-  {
-    'NeogitOrg/neogit',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'sindrets/diffview.nvim', -- optional - Diff integration
-      'nvim-telescope/telescope.nvim',
-    },
-    config = true,
-    keys = {
-      { '<leader>gg', '<cmd>Neogit<cr>', desc = 'Neo[g]it' },
-    },
-  },
-
   -- LazyGit
   {
     'kdheepak/lazygit.nvim',
@@ -43,6 +29,7 @@ return {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      current_line_blame = true,
     },
   },
 

@@ -57,7 +57,7 @@ return {
     end,
     dependencies = {
       { 'akinsho/toggleterm.nvim', version = '*', config = true },
-      { '/tpope/vim-dispatch' },
+      { 'tpope/vim-dispatch' },
     },
   },
 
