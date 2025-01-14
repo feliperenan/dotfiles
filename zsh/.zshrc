@@ -32,12 +32,6 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
-# Add in snippets
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::kubectx
-zinit snippet OMZP::command-not-found
-zinit snippet OMZP::tmux
-
 # Load completions
 autoload -U compinit && compinit
 zinit cdreplay -q
@@ -62,8 +56,8 @@ setopt hist_find_no_dups
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" 
-zstyle ':completion:*' menu no 
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd*' fzf-preview 'ls --color $realpath'
 
 # Aliases
@@ -94,21 +88,17 @@ alias delete-branchs='git branch | xargs git branch -D'
 alias prcompare='gh pr create -w'
 alias k='kubectl'
 
-# Setup FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source ~/.fzf-git.sh
-
-# Setup autojump 
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-
-# Setup ASDF - Package manager to install different programming languages
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-# Kubectl plugins
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
 # Enable history at iex console
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/.fzf-git/fzf-git.sh
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 # Set RG for FZF when RG is available
 if type rg &> /dev/null; then
@@ -116,8 +106,6 @@ if type rg &> /dev/null; then
   export FZF_DEFAULT_OPTS='-m --height 50% --border'
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# ASDF
+. "$HOME/.asdf/asdf.sh"
 
-# K8s helpers
-source ~/dotfiles/.k8s_helpers.zsh

@@ -1,16 +1,15 @@
 ## Pre-requisites
 
-* Homebrew for MacOS
-* tools: iterm, nvim, tmux, rg, fzf
+* MacOS or Debian based system
 * Powerfonts: `https://www.nerdfonts.com/`
 
-## Setup 
+## Installation
+
+This dotifles uses Ansible, so just executing the `install.sh` script will setup neovim, tmux, zsh, git, etc. You can check all apps installed in the site.yml file.
 
 ```bash
-brew install nvim tmux rg fzf
-git clone https://github.com/frenangomes/dotfiles
-chmod +x setup.sh
-./$HOME/dotfiles/setup.sh
+git clone https://github.com/frenangomes/dotfiles ~/dotfiles
+cd ~/dotfiles && chmod +x install.sh && ./install.sh
 ```
 
 ![Neovim & Tmux example](screenshots/neovim_tmux_example.png)

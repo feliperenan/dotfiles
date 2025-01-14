@@ -1,0 +1,96 @@
+---
+- name: Setup dotfiles
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create dotfiles directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      with_items:
+        - "~/.config"
+        - "~/.config/nvim"
+        - "~/.config/tmux"
+
+    - name: Symlink Neovim configuration
+      file:
+        src: "{{ playbook_dir }}/nvim"
+        dest: "~/.config/nvim"
+        state: link
+        force: yes
+
+    - name: Symlink Tmux configuration
+      file:
+        src: "{{ playbook_dir }}/tmux/.tmux.conf"
+        dest: "~/.tmux.conf"
+        state: link
+        force: yes
+
+    - name: Symlink Git configuration
+      file:
+        src: "{{ playbook_dir }}/git/.gitconfig"
+        dest: "~/.gitconfig"
+        state: link
+        force: yes
+
+    - name: Symlink Gitignore global
+      file:
+        src: "{{ playbook_dir }}/git/.gitignore_global"
+        dest: "~/.gitignore_global"
+        state: link
+        force: yes
+
+    - name: Symlink Zsh configuration
+      file:
+        src: "{{ playbook_dir }}/zsh/.zshrc"
+        dest: "~/.zshrc"
+        state: link
+        force: yes
+
+    - name: Symlink p10k configuration
+      file:
+        src: "{{ playbook_dir }}/p10k/.p10k.zsh"
+        dest: "~/.p10k.zsh"
+        state: link
+        force: yes
+
+    - name: Install packages (Debian-based)
+      apt:
+        name:
+          - neovim
+          - tmux
+          - git
+          - ripgrep
+          - curl
+          - unzip
+          - fzf
+        state: present
+      become: true
+      when: ansible_os_family == 'Debian'
+
+    - name: Install packages (macOS)
+      community.general.homebrew:
+        name:
+          - neovim
+          - tmux
+          - git
+          - ripgrep
+          - fzf
+          - asdf
+        state: present
+      when: ansible_system == 'Darwin'
+
+    - name: Clone asdf (Debian-based)
+      git:
+        repo: https://github.com/asdf-vm/asdf.git
+        dest: "~/.asdf"
+        version: v0.13.1
+        depth: 1
+      when: ansible_os_family == 'Debian'
+
+    - name: Clone fzf-git
+      git:
+        repo: https://github.com/junegunn/fzf-git.sh.git
+        dest: "~/.fzf-git"
+        depth: 1

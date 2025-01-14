@@ -5,7 +5,6 @@
 [init]
   templatedir = ~/.git_template
 [alias]
-  ctags = !.git/hooks/ctags
   d = difftool
   pf = push --force-with-lease
   graph = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset) - %C(dim green)%an%C(reset)%n''          %C(blue)%s%C(reset)' --all
@@ -20,3 +19,6 @@
   autosquash = true
 [core]
   editor = nvim
+  excludesfile = /Users/feliperenan/.gitignore_global
+[safe]
+  directory = /home/app/kimelixir
