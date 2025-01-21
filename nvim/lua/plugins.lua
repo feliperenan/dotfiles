@@ -56,7 +56,24 @@ return {
       vim.cmd [[ let g:test#runner_commands = ['ExUnit'] ]]
     end,
     dependencies = {
-      { 'akinsho/toggleterm.nvim', version = '*', config = true },
+      {
+        'akinsho/toggleterm.nvim',
+        version = '*',
+        opts = {
+          -- Configure toggleterm with a floating window
+          float_opts = {
+            border = 'curved', -- Rounded corners
+            width = function()
+              return math.floor(vim.o.columns * 0.8) -- 80% of screen width
+            end,
+            height = function()
+              return math.floor(vim.o.lines * 0.8)
+            end,
+          },
+          direction = 'float',
+          start_in_insert = false,
+        },
+      },
       { 'tpope/vim-dispatch' },
     },
   },
@@ -98,6 +115,7 @@ return {
         ['<leader>g'] = { name = '[G]it Hunk', _ = 'which_key_ignore' },
         ['<leader>t'] = {
           name = '[T]est',
+          t = { '<cmd>:ToggleTerm<cr>', 'Toggle term' },
           f = { '<cmd>TestFile<cr>', 'File' },
           n = { '<cmd>TestNearest<cr>', 'Nearest' },
           s = { '<cmd>TestSuite<cr>', 'Suite' },
