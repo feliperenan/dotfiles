@@ -152,5 +152,6 @@ vim.cmd [[
 ]]
 
 vim.keymap.set('n', '<leader>=', '<cmd>:wincmd =<CR>', { desc = 'Re-balance vim panes' })
+vim.keymap.set('n', '<leader>o', '<cmd>:ToggleTerm<CR>', { desc = 'Toggle terminal' })
 
 vim.cmd [[ autocmd BufRead,BufNewFile *.eex set filetype=heex ]]

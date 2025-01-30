@@ -103,30 +103,27 @@ return {
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
+      local wk = require 'which-key'
+      wk.setup()
 
       -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it Hunk', _ = 'which_key_ignore' },
-        ['<leader>t'] = {
-          name = '[T]est',
-          t = { '<cmd>:ToggleTerm<cr>', 'Toggle term' },
-          f = { '<cmd>TestFile<cr>', 'File' },
-          n = { '<cmd>TestNearest<cr>', 'Nearest' },
-          s = { '<cmd>TestSuite<cr>', 'Suite' },
-          x = { '<cmd>ExUnit --failed -strategy=dispatch<cr>', 'ExUnit failed tests' },
-        },
+      wk.add {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>h', group = '[G]it Hunk' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>t', group = '[T]est' },
+        { '<leader>tf', '<cmd>TestFile<cr>', desc = 'File' },
+        { '<leader>tn', '<cmd>TestNearest<cr>', desc = 'Nearest' },
+        { '<leader>ts', '<cmd>TestSuite<cr>', desc = 'Suite' },
+        { '<leader>tt', '<cmd>:ToggleTerm<cr>', desc = 'Toggle term' },
+        { '<leader>tx', '<cmd>ExUnit --failed -strategy=dispatch<cr>', desc = 'ExUnit failed tests' },
+        { '<leader>w', group = '[W]orkspace' },
       }
 
-      -- visual mode
-      require('which-key').register({
-        ['<leader>h'] = { 'Git [H]unk' },
-      }, { mode = 'v' })
+      -- Visual mode registrations
+      -- wk.register({ ['<leader>h'] = { name = 'Git [H]unk' } }, { mode = 'v' })
     end,
   },
 
@@ -275,6 +272,18 @@ return {
       --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    end,
+  },
+  {
+    'stevearc/oil.nvim',
+    config = function()
+      require('oil').setup {
+        view_options = {
+          show_hidden = true,
+        },
+      }
+      -- set keymap to open oil window
+      vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>Oil --float<cr>', { noremap = true, silent = true })
     end,
   },
 }
