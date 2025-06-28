@@ -29,7 +29,8 @@ return {
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          -- map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', '<cmd>lua vim.lsp.buf.definition()<cr>', '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -145,13 +146,19 @@ return {
           },
         },
 
-        elixirls = {
-          settings = {
-            elixirLS = {
-              dialyzerEnabled = false,
-              fetchDeps = false,
-            },
-          },
+        -- elixirls = {
+        --   settings = {
+        --     elixirLS = {
+        --       dialyzerEnabled = false,
+        --       fetchDeps = false,
+        --     },
+        --   },
+        -- },
+
+        lexical = {
+          cmd = { vim.fn.expand '~/lexical/_build/dev/package/lexical/bin/start_lexical.sh' },
+          filetypes = { 'elixir', 'eelixir', 'heex' },
+          settings = {},
         },
       }
 

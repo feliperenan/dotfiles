@@ -6,47 +6,36 @@ return {
   -- Trying copilot
   { 'github/copilot.vim' },
 
-  -- Dashboard
   {
-    'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
-    config = function()
-      require('dashboard').setup {
-        theme = 'hyper',
-        config = {
-          week_header = {
-            enable = true,
-          },
-
-          shortcut = {
-            { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
-            {
-              icon = ' ',
-              icon_hl = '@variable',
-              desc = 'Files',
-              group = 'Label',
-              action = 'Telescope find_files',
-              key = 'f',
-            },
-            {
-              desc = ' Apps',
-              group = 'DiagnosticHint',
-              action = 'Telescope app',
-              key = 'a',
-            },
-            -- Need to setup Telescope to open my dotfiles
-            -- {
-            --   desc = ' dotfiles',
-            --   group = 'Number',
-            --   action = 'Telescope dotfiles',
-            --   key = 'd',
-            -- },
-          },
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      -- bigfile = { enabled = true },
+      dashboard = {
+        enabled = true,
+        sections = {
+          { section = 'header' },
+          { icon = ' ', title = 'Keymaps', section = 'keys', indent = 2, padding = 1 },
+          { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+          { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
+          { section = 'startup' },
         },
-        shortcut_type = 'number',
-      }
-    end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+      },
+      -- indent = { enabled = true },
+      -- input = { enabled = true },
+      -- picker = { enabled = true },
+      notifier = { enabled = true },
+      -- quickfile = { enabled = true },
+      scroll = { enabled = true },
+      bufdelete = { enabled = true },
+      animate = { enabled = true },
+      -- statuscolumn = { enabled = true },
+      -- words = { enabled = true },
+    },
   },
 
   {
@@ -83,9 +72,6 @@ return {
   { 'tpope/vim-projectionist' },
   { 'dkuku/vim-projectionist-elixir' },
 
-  -- So I can rename files as :Rename old new
-  { 'danro/rename.vim' },
-
   -- Multi line cursor.
   { 'mg979/vim-visual-multi' },
 
@@ -121,12 +107,8 @@ return {
         { '<leader>tx', '<cmd>ExUnit --failed -strategy=dispatch<cr>', desc = 'ExUnit failed tests' },
         { '<leader>w', group = '[W]orkspace' },
       }
-
-      -- Visual mode registrations
-      -- wk.register({ ['<leader>h'] = { name = 'Git [H]unk' } }, { mode = 'v' })
     end,
   },
-
   -- The dependencies are proper plugin specifications as well - anything
   -- you do for a plugin at the top level, you can do for a dependency.
   --
@@ -194,14 +176,6 @@ return {
     end,
   },
 
-  -- Highlight todo, notes, etc in comments
-  {
-    'folke/todo-comments.nvim',
-    event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = false },
-  },
-
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
@@ -246,7 +220,23 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'elixir' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'vim',
+        'vimdoc',
+        'elixir',
+        'git_rebase',
+        'git_config',
+        'gitcommit',
+        'gitignore',
+      },
+
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -281,6 +271,7 @@ return {
         view_options = {
           show_hidden = true,
         },
+        skip_confirm_for_simple_edits = true,
       }
       -- set keymap to open oil window
       vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>Oil --float<cr>', { noremap = true, silent = true })
