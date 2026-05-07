@@ -6,6 +6,25 @@ return {
   -- Trying copilot
   { 'github/copilot.vim' },
 
+  -- I'm not sure if I want that.
+  -- {
+  --   'MeanderingProgrammer/render-markdown.nvim',
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suiteplu
+  --   opts = {},
+  --   keys = {
+  --     { '<leader>mt', '<cmd>RenderMarkdown toggle<cr>', desc = '[L]azyGit' },
+  --   },
+  -- },
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && yarn install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+  },
+
   {
     'folke/snacks.nvim',
     priority = 1000,
